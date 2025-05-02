@@ -62,18 +62,25 @@ disp[0] = float(dispIn[0])
 disp[1] = float(dispIn[1])
 disp[2] = float(dispIn[2])
 
-frame = input("type T for tool, or W for world: ")
-if frame == 'T' or frame == 't':
-    rotated = rotation(quat)
-    displaced = multiply(rotated, disp)
-    displaced[0] += initialPos[0]
-    displaced[1] += initialPos[1]
-    displaced[2] += initialPos[2]
+newPos = np.array([0.0, 0.0, 0.0])
+good = True
+while good:
+    frame = input("type T for tool, or W for world: ")
+    if frame == 'T' or frame == 't':
+        rotated = rotation(quat)
+        displaced = multiply(rotated, disp)
+        newPos[0] = displaced[0] + initialPos[0]
+        newPos[1] = displaced[1] + initialPos[1]
+        newPos[2] = displaced[2] + initialPos[2]
+        good = False
+    if frame == 'W' or frame == 'w':
+        newPos[0] = initialPos[0] + disp[0]
+        newPos[1] = initialPos[1] + disp[1]
+        newPos[2] = initialPos[2] + disp[2]
+        good = False
 
-print(displaced)
+print(newPos)
 print(quat)
 print(cog)
 print(orient)
 print(moi)
-                      
-
