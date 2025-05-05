@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 
-class guiTcp:
+class GuiTcp:
 
     def __init__(self, root):
         
@@ -163,5 +163,5 @@ class guiTcp:
         pass
 
 root = Tk()
-guiTcp(root)
+GuiTcp(root)
 root.mainloop()
