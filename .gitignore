@@ -1,4 +1,6 @@
 cpp/
 docs/
+__pycache__/
+tool_test.py
 *~
 \#*#
