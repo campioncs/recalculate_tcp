@@ -1,5 +1,8 @@
 from tkinter import *
+from tkinter import filedialog
 from tkinter import ttk
+from tool import Tool
+from parse import ToolParse
 
 class GuiTcp:
 
@@ -155,11 +158,23 @@ class GuiTcp:
             child.grid_configure(padx=5)
             root.bind("<Return>", self.calculate)
             
-    def calculate(*args):
+    def calculate(self):
         pass
-    def loadTool():
-        pass
-    def saveTool():
+
+    def loadTool(self):
+        filename = filedialog.askopenfilename()
+        toolData = ToolParse(filename)
+        if len(toolData.dictArray) > 1:
+            selectTool = Toplevel()
+            selectTool.title("Select tool to modify")
+            choices = []
+            for item in toolData.dictArray:
+                choices.append(item["name"])
+            choicesVar = StringVar(value=choices)
+            l = Listbox(selectTool, listvariable=choicesVar).grid(column=1, row=1,
+                                                                  sticky=(N, S, W))
+
+    def saveTool(self):
         pass
 
 root = Tk()

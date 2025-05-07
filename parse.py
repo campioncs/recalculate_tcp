@@ -24,7 +24,7 @@ class ToolParse:
             toolDict = dict()
             spaceSplit = item.split()
             colonSplit = spaceSplit[2].split(":")
-            name = colonSplit[0]
+            toolDict["name"] = colonSplit[0]
             commaSplit = colonSplit[1].split(",")
             toolDict["x"] = commaSplit[1].strip("[")
             toolDict["y"] = commaSplit[2]
