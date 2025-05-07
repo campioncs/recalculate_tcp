@@ -26,6 +26,7 @@ class ToolParse:
             colonSplit = spaceSplit[2].split(":")
             toolDict["name"] = colonSplit[0]
             commaSplit = colonSplit[1].split(",")
+            toolDict["mounted"] = commaSplit[0].strip("=[")
             toolDict["x"] = commaSplit[1].strip("[")
             toolDict["y"] = commaSplit[2]
             toolDict["z"] = commaSplit[3].strip("]")
@@ -46,4 +47,3 @@ class ToolParse:
             toolDict["moiZ"] = commaSplit[18].strip("]];")
             self.dictArray.append(toolDict)
 
-    

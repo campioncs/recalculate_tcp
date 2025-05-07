@@ -12,30 +12,36 @@ class GuiTcp:
 
         dataFrame = ttk.Frame(root, padding="3 3 12 12")
         displaceFrame = ttk.Frame(root, padding="3 3 12 12")
+        radioFrame = ttk.Frame(root, padding="3 3 12 12")        
         buttonFrame = ttk.Frame(root, padding="3 3 12 12")
         
-        dataFrame.grid(column=0, row=0, sticky=(N, W, E, S))
+        dataFrame.grid(column=0, row=0, sticky=(N, W, E, S), columnspan=2)
         displaceFrame.grid(column=0, row=1, sticky=(N, W, E, S))
-        buttonFrame.grid(column=0, row=2, sticky=(N, W, E, S))
+        radioFrame.grid(column=0, row=2, sticky=(N, W, S))
+        buttonFrame.grid(column=1, row=1, sticky=(N, W, S), rowspan=2)
         
         root.columnconfigure(0, weight=1)
         root.rowconfigure(0, weight=1)
 
+        self.name = StringVar()
         self.initialX = StringVar()
         self.initialY = StringVar()
         self.initialZ = StringVar()
 
+        nameEntry = ttk.Entry(dataFrame, width=9, textvariable=self.name)
         initialXEntry = ttk.Entry(dataFrame, width=9, textvariable=self.initialX)
         initialYEntry = ttk.Entry(dataFrame, width=9, textvariable=self.initialY)
         initialZEntry = ttk.Entry(dataFrame, width=9, textvariable=self.initialZ)
 
-        initialXEntry.grid(column=2, row=1, sticky=(W, E))
-        initialYEntry.grid(column=2, row=2, sticky=(W, E))
-        initialZEntry.grid(column=2, row=3, sticky=(W, E))
+        nameEntry.grid(column=2, row=1, sticky=(W, E))
+        initialXEntry.grid(column=2, row=2, sticky=(W, E))
+        initialYEntry.grid(column=2, row=3, sticky=(W, E))
+        initialZEntry.grid(column=2, row=4, sticky=(W, E))
 
-        ttk.Label(dataFrame, text="Initial X value:").grid(column=1, row=1, sticky=W)
-        ttk.Label(dataFrame, text="Initial Y value:").grid(column=1, row=2, sticky=W)
-        ttk.Label(dataFrame, text="Initial Z value:").grid(column=1, row=3, sticky=W)
+        ttk.Label(dataFrame, text="Name:").grid(column=1, row=1, sticky=W)
+        ttk.Label(dataFrame, text="Initial X value:").grid(column=1, row=2, sticky=W)
+        ttk.Label(dataFrame, text="Initial Y value:").grid(column=1, row=3, sticky=W)
+        ttk.Label(dataFrame, text="Initial Z value:").grid(column=1, row=4, sticky=W)
 
         self.q1Str = StringVar()
         self.q2Str = StringVar()
@@ -131,21 +137,34 @@ class GuiTcp:
         ttk.Label(displaceFrame, text="Y:").grid(column=3, row=2, sticky=W)
         ttk.Label(displaceFrame, text="Z:").grid(column=5, row=2, sticky=W)
 
+        self.mountedStr = StringVar()
+        radT = ttk.Radiobutton(radioFrame, text="TRUE",
+                               variable=self.mountedStr, value="TRUE")
+        radF = ttk.Radiobutton(radioFrame, text="FALSE",
+                               variable=self.mountedStr, value="FALSE")
+        ttk.Label(radioFrame, text="Is tool mounted:",
+                  font=("Helvetica", 8, "bold")).grid(column=1, row=1, sticky=W)
+        radT.grid(column=2, row=1, sticky=W)
+        radF.grid(column=2, row=2, sticky=W)
+        self.mountedStr.set("TRUE")
+        
         self.frameStr = StringVar()
-        radTool = ttk.Radiobutton(buttonFrame, text="Tool",
+        radTool = ttk.Radiobutton(radioFrame, text="Tool",
                                   variable=self.frameStr, value="tool")
-        radWorld = ttk.Radiobutton(buttonFrame, text="World",
+        radWorld = ttk.Radiobutton(radioFrame, text="World",
                                    variable=self.frameStr, value="world")
-        radTool.grid(column=1, row=1, sticky=W)
-        radWorld.grid(column=1, row=2, sticky=W)
+        ttk.Label(radioFrame, text="Select frame:",
+                  font=("Helvetica", 8, "bold")).grid(column=3, row=1, sticky=W)
+        radTool.grid(column=4, row=1, sticky=W)
+        radWorld.grid(column=4, row=2, sticky=W)
         self.frameStr.set("tool")
         
         ttk.Button(buttonFrame, text="Load tool from file",
-                   command=self.loadTool).grid(column=2, row=1, sticky=W)
+                   command=self.loadTool).grid(column=1, row=1, sticky=(S, W))
         ttk.Button(buttonFrame, text="Save tool to file",
-                   command=self.saveTool).grid(column=3, row=1, sticky=W)
+                   command=self.saveTool).grid(column=1, row=2, sticky=(S, W))
         ttk.Button(buttonFrame, text="Calculate",
-                   command=self.calculate).grid(column=4, row=1, sticky=(S, E), rowspan=3)
+                   command=self.calculate).grid(column=2, row=1, sticky=(S, W), rowspan=3)
 
         for child in dataFrame.winfo_children(): 
             child.grid_configure(padx=5, pady=5)
@@ -154,8 +173,10 @@ class GuiTcp:
         for child in displaceFrame.winfo_children():
             child.grid_configure(padx=5)
             root.bind("<Return>", self.calculate)
+        for child in radioFrame.winfo_children():
+            root.bind("<Return>", self.calculate)
         for child in buttonFrame.winfo_children():
-            child.grid_configure(padx=5)
+            child.grid_configure(padx=3, pady=5)
             root.bind("<Return>", self.calculate)
             
     def calculate(self):

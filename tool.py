@@ -2,8 +2,9 @@ import numpy as np
 
 class Tool:
 
-    def __init__(self, name, pos, quat, cog, orient, moi):
+    def __init__(self, name, mounted, pos, quat, cog, orient, moi):
         self.name = name
+        self.mounted = mounted
         self.pos = pos
         self.quat = quat
         self.cog = cog
@@ -13,10 +14,12 @@ class Tool:
 
     def __str__(self):
         toolStr = ("Name: " + str(self.name) + "\n" +
-              "Position: " + str(self.pos) + "\n" +
-              "Quaternation " + str(self.quat) + "\n" +
-              "Center Of Gravity: " + str(self.cog) + "\n" +
-              "Moment Of Inertia: " + str(self.moi) + "\n")
+                   "Mounted: " + str(self.mounted) + "\n" +
+                   "Position: " + str(self.pos) + "\n" +
+                   "Quaternation " + str(self.quat) + "\n" +
+                   "Center Of Gravity: " + str(self.cog) + "\n" +
+                   "COG Orient: " + str(self.orient) + "\n" +
+                   "Moment Of Inertia: " + str(self.moi))
         return toolStr
 
     def toRotationMatrix(self):
