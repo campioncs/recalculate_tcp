@@ -23,35 +23,36 @@ class GuiTcp:
         root.columnconfigure(0, weight=1)
         root.rowconfigure(0, weight=1)
 
-        self.name = StringVar()
-        self.initialX = StringVar()
-        self.initialY = StringVar()
-        self.initialZ = StringVar()
+        self.toolIndex = ()
+        self.nameStr = StringVar()
+        self.xStr = StringVar()
+        self.yStr = StringVar()
+        self.zStr = StringVar()
 
-        nameEntry = ttk.Entry(dataFrame, width=9, textvariable=self.name)
-        initialXEntry = ttk.Entry(dataFrame, width=9, textvariable=self.initialX)
-        initialYEntry = ttk.Entry(dataFrame, width=9, textvariable=self.initialY)
-        initialZEntry = ttk.Entry(dataFrame, width=9, textvariable=self.initialZ)
+        nameEntry = ttk.Entry(dataFrame, width=9, textvariable=self.nameStr)
+        xEntry = ttk.Entry(dataFrame, width=9, textvariable=self.xStr)
+        yEntry = ttk.Entry(dataFrame, width=9, textvariable=self.yStr)
+        zEntry = ttk.Entry(dataFrame, width=9, textvariable=self.zStr)
 
         nameEntry.grid(column=2, row=1, sticky=(W, E))
-        initialXEntry.grid(column=2, row=2, sticky=(W, E))
-        initialYEntry.grid(column=2, row=3, sticky=(W, E))
-        initialZEntry.grid(column=2, row=4, sticky=(W, E))
+        xEntry.grid(column=2, row=2, sticky=(W, E))
+        yEntry.grid(column=2, row=3, sticky=(W, E))
+        zEntry.grid(column=2, row=4, sticky=(W, E))
 
         ttk.Label(dataFrame, text="Name:").grid(column=1, row=1, sticky=W)
-        ttk.Label(dataFrame, text="Initial X value:").grid(column=1, row=2, sticky=W)
-        ttk.Label(dataFrame, text="Initial Y value:").grid(column=1, row=3, sticky=W)
-        ttk.Label(dataFrame, text="Initial Z value:").grid(column=1, row=4, sticky=W)
+        ttk.Label(dataFrame, text="X:").grid(column=1, row=2, sticky=W)
+        ttk.Label(dataFrame, text="Y:").grid(column=1, row=3, sticky=W)
+        ttk.Label(dataFrame, text="Z:").grid(column=1, row=4, sticky=W)
 
         self.q1Str = StringVar()
         self.q2Str = StringVar()
         self.q3Str = StringVar()
-        self.q2Str = StringVar()
+        self.q4Str = StringVar()
 
         q1StrEntry = ttk.Entry(dataFrame, width=9, textvariable=self.q1Str)
         q2StrEntry = ttk.Entry(dataFrame, width=9, textvariable=self.q2Str)
         q3StrEntry = ttk.Entry(dataFrame, width=9, textvariable=self.q3Str)
-        q4StrEntry = ttk.Entry(dataFrame, width=9, textvariable=self.q3Str)
+        q4StrEntry = ttk.Entry(dataFrame, width=9, textvariable=self.q4Str)
 
         q1StrEntry.grid(column=4, row=1, sticky=(E, W))
         q2StrEntry.grid(column=4, row=2, sticky=(E, W))       
@@ -83,15 +84,15 @@ class GuiTcp:
         ttk.Label(dataFrame, text="cogY:").grid(column=5, row=3, sticky=W)
         ttk.Label(dataFrame, text="cogZ:").grid(column=5, row=4, sticky=W)
 
-        self.cogOrQ1Str = StringVar()
-        self.cogOrQ2Str = StringVar()
-        self.cogOrQ3Str = StringVar()
-        self.cogOrQ4Str = StringVar()
+        self.orientQ1Str = StringVar()
+        self.orientQ2Str = StringVar()
+        self.orientQ3Str = StringVar()
+        self.orientQ4Str = StringVar()
 
-        cogOrQ1Entry = ttk.Entry(dataFrame, width=9, textvariable=self.cogOrQ1Str)
-        cogOrQ2Entry = ttk.Entry(dataFrame, width=9, textvariable=self.cogOrQ2Str)
-        cogOrQ3Entry = ttk.Entry(dataFrame, width=9, textvariable=self.cogOrQ3Str)
-        cogOrQ4Entry = ttk.Entry(dataFrame, width=9, textvariable=self.cogOrQ4Str)
+        cogOrQ1Entry = ttk.Entry(dataFrame, width=9, textvariable=self.orientQ1Str)
+        cogOrQ2Entry = ttk.Entry(dataFrame, width=9, textvariable=self.orientQ2Str)
+        cogOrQ3Entry = ttk.Entry(dataFrame, width=9, textvariable=self.orientQ3Str)
+        cogOrQ4Entry = ttk.Entry(dataFrame, width=9, textvariable=self.orientQ4Str)
 
         cogOrQ1Entry.grid(column=8, row=1, sticky=(W, E))
         cogOrQ2Entry.grid(column=8, row=2, sticky=(W, E))
@@ -168,7 +169,7 @@ class GuiTcp:
 
         for child in dataFrame.winfo_children(): 
             child.grid_configure(padx=5, pady=5)
-            initialXEntry.focus()
+            xEntry.focus()
             root.bind("<Return>", self.calculate)
         for child in displaceFrame.winfo_children():
             child.grid_configure(padx=5)
@@ -192,9 +193,38 @@ class GuiTcp:
             for item in toolData.dictArray:
                 choices.append(item["name"])
             choicesVar = StringVar(value=choices)
-            l = Listbox(selectTool, listvariable=choicesVar).grid(column=1, row=1,
-                                                                  sticky=(N, S, W))
+            lbox = Listbox(selectTool, listvariable=choicesVar)
+            lbox.grid(column=1, row=1, sticky=(N, S, W))
+            lbox.activate(0)
+            lbox.selection_set(0)
+            self.toolIndex = lbox.curselection()
+            ttk.Button(selectTool, text="Okay", command=selectTool.destroy).grid(
+                column=2, row=1, sticky=(S, E))
+        else:
+            self.toolIndex = 0
 
+        chosen = toolData.dictArray[self.toolIndex[0]]
+        self.nameStr.set(chosen["name"])
+        self.mountedStr.set(chosen["mounted"])
+        self.xStr.set(chosen["x"])
+        self.yStr.set(chosen["y"])
+        self.zStr.set(chosen["z"])
+        self.q1Str.set(chosen["q1"])
+        self.q2Str.set(chosen["q2"])
+        self.q3Str.set(chosen["q3"])
+        self.q4Str.set(chosen["q4"])
+        self.massStr.set(chosen["mass"])
+        self.cogXStr.set(chosen["cogX"])
+        self.cogYStr.set(chosen["cogY"])
+        self.cogZStr.set(chosen["cogZ"])
+        self.orientQ1Str.set(chosen["orientQ1"])
+        self.orientQ2Str.set(chosen["orientQ2"])
+        self.orientQ3Str.set(chosen["orientQ3"])
+        self.orientQ4Str.set(chosen["orientQ4"])
+        self.moiXStr.set(chosen["moiX"])
+        self.moiYStr.set(chosen["moiY"])
+        self.moiZStr.set(chosen["moiZ"])
+        
     def saveTool(self):
         pass
 
