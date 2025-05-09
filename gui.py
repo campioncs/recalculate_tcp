@@ -23,7 +23,6 @@ class GuiTcp:
         root.columnconfigure(0, weight=1)
         root.rowconfigure(0, weight=1)
 
-        self.toolIndex = ()
         self.nameStr = StringVar()
         self.xStr = StringVar()
         self.yStr = StringVar()
@@ -193,17 +192,18 @@ class GuiTcp:
             for item in toolData.dictArray:
                 choices.append(item["name"])
             choicesVar = StringVar(value=choices)
+            okay = ttk.Button(selectTool, text="Okay", command=lambda:self.okayPress(selectTool, toolData.dictArray[lbox.curselection()[0]]))
+            okay.grid(column=2, row=1, sticky=(S, E))
             lbox = Listbox(selectTool, listvariable=choicesVar)
             lbox.grid(column=1, row=1, sticky=(N, S, W))
             lbox.activate(0)
             lbox.selection_set(0)
-            self.toolIndex = lbox.curselection()
-            ttk.Button(selectTool, text="Okay", command=selectTool.destroy).grid(
-                column=2, row=1, sticky=(S, E))
-        else:
-            self.toolIndex = 0
+            lbox.bind("<Double-1>", lambda x: okay.invoke())
 
-        chosen = toolData.dictArray[self.toolIndex[0]]
+        else:
+            self.setData(toolData.dictArray[0])
+
+    def setData(self, chosen):
         self.nameStr.set(chosen["name"])
         self.mountedStr.set(chosen["mounted"])
         self.xStr.set(chosen["x"])
@@ -224,6 +224,10 @@ class GuiTcp:
         self.moiXStr.set(chosen["moiX"])
         self.moiYStr.set(chosen["moiY"])
         self.moiZStr.set(chosen["moiZ"])
+        
+    def okayPress(self, st, chosen):
+        self.setData(chosen)
+        st.destroy()
         
     def saveTool(self):
         pass
