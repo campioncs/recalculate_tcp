@@ -125,7 +125,7 @@ class GuiTcp:
 
         dispXEntry = ttk.Entry(displaceFrame, width=9, textvariable=self.dispXStr)
         dispYEntry = ttk.Entry(displaceFrame, width=9, textvariable=self.dispYStr)
-        dispZEntry = ttk.Entry(displaceFrame, width=9, textvariable=self.dispXStr)
+        dispZEntry = ttk.Entry(displaceFrame, width=9, textvariable=self.dispZStr)
 
         dispXEntry.grid(column=2, row=2, sticky=(W, E))
         dispYEntry.grid(column=4, row=2, sticky=(W, E))
@@ -180,7 +180,14 @@ class GuiTcp:
             root.bind("<Return>", self.calculate)
             
     def calculate(self):
-        pass
+        pos = [float(self.xStr.get()), float(self.yStr.get()), float(self.zStr.get())]
+        quat = [float(self.q1Str.get()), float(self.q2Str.get()), float(self.q3Str.get()), float(self.q4Str.get())]
+        cog = [float(self.massStr.get()), float(self.cogXStr.get()), float(self.cogYStr.get()), float(self.cogZStr.get())]
+        orient = [float(self.orientQ1Str.get()), float(self.orientQ2Str.get()), float(self.orientQ3Str.get()), float(self.orientQ4Str.get())]
+        moi = [float(self.moiXStr.get()), float(self.moiYStr.get()), float(self.moiZStr.get())]
+
+        calcTool = Tool(self.nameStr.get(), self.mountedStr.get(), pos, quat, cog, orient, moi)
+        print(calcTool)
 
     def loadTool(self):
         filename = filedialog.askopenfilename()
