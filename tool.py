@@ -43,3 +43,14 @@ class Tool:
     def multiply(self, r, v):
         return np.dot(r,v)
 
+    def displaceTool(self, coord):
+        newPos = self.multiply(self.rotated, coord)
+        self.pos[0] = float(newPos[0] + self.pos[0])
+        self.pos[1] = float(newPos[1] + self.pos[1])
+        self.pos[2] = float(newPos[2] + self.pos[2])
+
+    def displaceWorld(self, coord):
+        self.pos[0] = coord[0] + self.pos[0]
+        self.pos[1] = coord[1] + self.pos[1]
+        self.pos[2] = coord[2] + self.pos[2]
+        
