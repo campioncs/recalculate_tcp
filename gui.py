@@ -192,12 +192,23 @@ class GuiTcp:
 
         results = Toplevel()
         results.title("Results")
-        ttk.Label(results, text=calcTool).grid(column=1, row=1, sticky=W)
-        ttk.Button(results, text="Copy to clipboard", command=self.toClip).grid(column=1, row=2, sticky=W, padx=5, pady=5)
-        ttk.Button(results, text="Close", command=results.destroy).grid(column=2, row=2, sticky=W, columnspan=2,padx=5, pady=5)        
-
-    def toClip(self):
+        ttk.Label(results, text=calcTool).grid(column=1, row=1, sticky=W, columnspan=3, padx=5, pady=5)
+        ttk.Button(results, text="Copy to clipboard",
+                   command=lambda: self.toClip(results,calcTool)).grid(column=1, row=2,
+                                                                       sticky=W, padx=5, pady=5)
+        ttk.Button(results, text="Save to File",
+                   command=lambda: self.toFile(calcTool)).grid(column=2, row=2,
+                                                              sticky=W, padx=5, pady=5)
+        ttk.Button(results, text="Close", command=results.destroy).grid(column=3, row=2,
+                                                                        sticky=W, padx=5, pady=5)
+        
+    def toFile(tool):
         pass
+    
+    def toClip(self, window, data):
+        window.clipboard_clear()
+        window.clipboard_append(data)
+        window.update()
     
     def loadTool(self):
         filename = filedialog.askopenfilename()
