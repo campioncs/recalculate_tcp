@@ -186,9 +186,19 @@ class GuiTcp:
         orient = [float(self.orientQ1Str.get()), float(self.orientQ2Str.get()), float(self.orientQ3Str.get()), float(self.orientQ4Str.get())]
         moi = [float(self.moiXStr.get()), float(self.moiYStr.get()), float(self.moiZStr.get())]
 
+        dispVector = [float(self.dispXStr.get()), float(self.dispYStr.get()), float(self.dispZStr.get())]
         calcTool = Tool(self.nameStr.get(), self.mountedStr.get(), pos, quat, cog, orient, moi)
-        print(calcTool)
+        calcTool.displaceTool(dispVector)
 
+        results = Toplevel()
+        results.title("Results")
+        ttk.Label(results, text=calcTool).grid(column=1, row=1, sticky=W)
+        ttk.Button(results, text="Copy to clipboard", command=self.toClip).grid(column=1, row=2, sticky=W, padx=5, pady=5)
+        ttk.Button(results, text="Close", command=results.destroy).grid(column=2, row=2, sticky=W, columnspan=2,padx=5, pady=5)        
+
+    def toClip(self):
+        pass
+    
     def loadTool(self):
         filename = filedialog.askopenfilename()
         toolData = ToolParse(filename)
