@@ -13,13 +13,26 @@ class Tool:
         self.rotated = self.toRotationMatrix()
 
     def __str__(self):
-        toolStr = ("Name: " + str(self.name) + "\n" +
-                   "Mounted: " + str(self.mounted) + "\n" +
-                   "Position: " + str(self.pos) + "\n" +
-                   "Quaternation " + str(self.quat) + "\n" +
-                   "Center Of Gravity: " + str(self.cog) + "\n" +
-                   "COG Orient: " + str(self.orient) + "\n" +
-                   "Moment Of Inertia: " + str(self.moi))
+        roundPos = []
+        roundQuat = []
+        roundMass = round(self.cog[0])
+        roundCog = [round(self.cog[1], 6), round(self.cog[2], 6), round(self.cog[3], 6)]
+        roundOrient = []
+        roundMoi = []
+        
+        for item in self.pos:
+            roundPos.append(round(item, 6))
+        for item in self.quat:
+            roundQuat.append(round(item, 6))
+        for item in self.orient:
+            roundOrient.append(round(item, 6))
+        for item in self.moi:
+            roundMoi.append(round(item, 6))
+        
+        toolStr = ("PERS tooldata " + str(self.name) + ":=[" + str(self.mounted) + ",[" +
+                   str(roundPos) + "," + str(roundQuat) + "],[" + str(roundMass) + "," +
+                   str(roundCog) + "," + str(roundOrient) + "," + str(roundMoi[0]) + "," +
+                   str(roundMoi[1]) + "," + str(roundMoi[2]) +  "]];")
         return toolStr
 
     def toRotationMatrix(self):
