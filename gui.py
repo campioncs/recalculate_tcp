@@ -3,6 +3,7 @@ from tkinter import filedialog
 from tkinter import ttk
 from tool import Tool
 from parse import ToolParse
+from pathlib import Path
 
 class GuiTcp:
 
@@ -180,14 +181,8 @@ class GuiTcp:
             root.bind("<Return>", self.calculate)
             
     def calculate(self):
-        pos = [float(self.xStr.get()), float(self.yStr.get()), float(self.zStr.get())]
-        quat = [float(self.q1Str.get()), float(self.q2Str.get()), float(self.q3Str.get()), float(self.q4Str.get())]
-        cog = [float(self.massStr.get()), float(self.cogXStr.get()), float(self.cogYStr.get()), float(self.cogZStr.get())]
-        orient = [float(self.orientQ1Str.get()), float(self.orientQ2Str.get()), float(self.orientQ3Str.get()), float(self.orientQ4Str.get())]
-        moi = [float(self.moiXStr.get()), float(self.moiYStr.get()), float(self.moiZStr.get())]
-
         dispVector = [float(self.dispXStr.get()), float(self.dispYStr.get()), float(self.dispZStr.get())]
-        calcTool = Tool(self.nameStr.get(), self.mountedStr.get(), pos, quat, cog, orient, moi)
+        calcTool = self.createTool()
         calcTool.displaceTool(dispVector)
 
         results = Toplevel()
@@ -201,9 +196,24 @@ class GuiTcp:
                                                               sticky=W, padx=5, pady=5)
         ttk.Button(results, text="Close", command=results.destroy).grid(column=3, row=2,
                                                                         sticky=W, padx=5, pady=5)
+
+    def createTool(self):
+        pos = [float(self.xStr.get()), float(self.yStr.get()), float(self.zStr.get())]
+        quat = [float(self.q1Str.get()), float(self.q2Str.get()), float(self.q3Str.get()), float(self.q4Str.get())]
+        cog = [float(self.massStr.get()), float(self.cogXStr.get()), float(self.cogYStr.get()), float(self.cogZStr.get())]
+        orient = [float(self.orientQ1Str.get()), float(self.orientQ2Str.get()), float(self.orientQ3Str.get()), float(self.orientQ4Str.get())]
+        moi = [float(self.moiXStr.get()), float(self.moiYStr.get()), float(self.moiZStr.get())]
+
+        return  Tool(self.nameStr.get(), self.mountedStr.get(), pos, quat, cog, orient, moi)        
         
-    def toFile(tool):
-        pass
+    def toFile(self, tool):
+        saveFilename = filedialog.askopenfilename()
+        output_file = Path(saveFilename)
+        with open(saveFilename, "a") as f:
+            f.write(str(tool))
+#        output_file.parent.mkdir(exist_ok=True, parents=True)
+#        output_file.write_text(str(tool))
+
     
     def toClip(self, window, data):
         window.clipboard_clear()
