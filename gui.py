@@ -180,7 +180,7 @@ class GuiTcp:
             child.grid_configure(padx=3, pady=5)
             root.bind("<Return>", self.calculate)
             
-    def calculate(self):
+    def calculate(self, event=None):
         dispVector = [float(self.dispXStr.get()), float(self.dispYStr.get()), float(self.dispZStr.get())]
         calcTool = self.createTool()
         calcTool.displaceTool(dispVector)
