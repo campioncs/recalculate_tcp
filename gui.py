@@ -1,9 +1,9 @@
 from tkinter import *
 from tkinter import filedialog
+from tkinter import messagebox
 from tkinter import ttk
 from tool import Tool
 from parse import ToolParse
-from pathlib import Path
 
 class GuiTcp:
 
@@ -162,8 +162,10 @@ class GuiTcp:
         
         ttk.Button(buttonFrame, text="Load tool from file",
                    command=self.loadTool).grid(column=1, row=1, sticky=(S, W))
-        ttk.Button(buttonFrame, text="Save tool to file",
-                   command=self.saveTool).grid(column=1, row=2, sticky=(S, W))
+        ttk.Button(buttonFrame, text="Save to file",
+                   command=self.rootSaveFile).grid(column=1, row=2, sticky=(S, W))
+        ttk.Button(buttonFrame, text="Save to new file",
+                   command=self.rootSaveAsFile).grid(column=1, row=3, sticky=(S, W))
         ttk.Button(buttonFrame, text="Calculate",
                    command=self.calculate).grid(column=2, row=1, sticky=(S, W), rowspan=3)
 
@@ -187,14 +189,18 @@ class GuiTcp:
 
         results = Toplevel()
         results.title("Results")
-        ttk.Label(results, text=calcTool).grid(column=1, row=1, sticky=W, columnspan=3, padx=5, pady=5)
+        ttk.Label(results, text=calcTool).grid(column=1, row=1, sticky=W, columnspan=4, padx=5, pady=5)
         ttk.Button(results, text="Copy to clipboard",
                    command=lambda: self.toClip(results,calcTool)).grid(column=1, row=2,
                                                                        sticky=W, padx=5, pady=5)
         ttk.Button(results, text="Save to File",
-                   command=lambda: self.toFile(calcTool)).grid(column=2, row=2,
+                   command=lambda: self.saveFile(calcTool)).grid(column=2, row=2,
                                                               sticky=W, padx=5, pady=5)
-        ttk.Button(results, text="Close", command=results.destroy).grid(column=3, row=2,
+        ttk.Button(results, text="Save to new File",
+                   command=lambda: self.saveAsFile(calcTool)).grid(column=3, row=2,
+                                                              sticky=W, padx=5, pady=5)
+        
+        ttk.Button(results, text="Close", command=results.destroy).grid(column=4, row=2,
                                                                         sticky=W, padx=5, pady=5)
 
     def createTool(self):
@@ -205,16 +211,25 @@ class GuiTcp:
         moi = [float(self.moiXStr.get()), float(self.moiYStr.get()), float(self.moiZStr.get())]
 
         return  Tool(self.nameStr.get(), self.mountedStr.get(), pos, quat, cog, orient, moi)        
-        
-    def toFile(self, tool):
-        saveFilename = filedialog.askopenfilename()
-        output_file = Path(saveFilename)
-        with open(saveFilename, "a") as f:
-            f.write(str(tool))
-#        output_file.parent.mkdir(exist_ok=True, parents=True)
-#        output_file.write_text(str(tool))
 
+    def rootSaveFile(self):
+        self.saveFile(self.createTool())
+
+    def rootSaveAsFile(self):
+        self.saveAsFile(self.createTool())
     
+    def saveFile(self, tool):
+        saveFilename = filedialog.askopenfilename()
+        with open(saveFilename, "a") as f:
+            f.write(str(tool) + "\n")
+        messagebox.showinfo("Tool Saved", tool.name + " saved to " + saveFilename)
+
+    def saveAsFile(self, tool):
+        saveFilename = filedialog.asksaveasfilename()
+        with open(saveFilename, "a") as f:
+            f.write(str(tool) + "\n")
+        messagebox.showinfo("Tool Saved", tool.name + " saved to " + saveFilename)
+        
     def toClip(self, window, data):
         window.clipboard_clear()
         window.clipboard_append(data)
@@ -266,9 +281,6 @@ class GuiTcp:
     def okayPress(self, st, chosen):
         self.setData(chosen)
         st.destroy()
-        
-    def saveTool(self):
-        pass
 
 root = Tk()
 GuiTcp(root)

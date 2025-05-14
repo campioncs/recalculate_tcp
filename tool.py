@@ -30,8 +30,9 @@ class Tool:
             roundMoi.append(round(item, 6))
         
         toolStr = ("PERS tooldata " + str(self.name) + ":=[" + str(self.mounted) + ",[" +
-                   str(roundPos) + "," + str(roundQuat) + "],[" + str(roundMass) + "," +
-                   str(roundCog) + "," + str(roundOrient) + "," + str(roundMoi[0]) + "," +
+                   str(roundPos).replace(" ", "") + "," + str(roundQuat).replace(" ", "") +
+                   "],[" + str(roundMass) + "," + str(roundCog).replace(" ", "") + "," +
+                   str(roundOrient).replace(" ", "") + "," + str(roundMoi[0]) + "," +
                    str(roundMoi[1]) + "," + str(roundMoi[2]) +  "]];")
         return toolStr
 
