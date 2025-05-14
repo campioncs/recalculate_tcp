@@ -183,13 +183,16 @@ class GuiTcp:
             root.bind("<Return>", self.calculate)
             
     def calculate(self, event=None):
-        dispVector = [float(self.dispXStr.get()), float(self.dispYStr.get()), float(self.dispZStr.get())]
+        dispVector = [float(self.dispXStr.get()), float(self.dispYStr.get()),
+                      float(self.dispZStr.get())]
         calcTool = self.createTool()
         calcTool.displaceTool(dispVector)
 
         results = Toplevel()
         results.title("Results")
-        ttk.Label(results, text=calcTool).grid(column=1, row=1, sticky=W, columnspan=4, padx=5, pady=5)
+        ttk.Label(results, text=calcTool,
+                  font=("Helvetica", 10, "bold")).grid(column=1, row=1, sticky=W,
+                                                      columnspan=4, padx=5, pady=5)
         ttk.Button(results, text="Copy to clipboard",
                    command=lambda: self.toClip(results,calcTool)).grid(column=1, row=2,
                                                                        sticky=W, padx=5, pady=5)
@@ -200,18 +203,22 @@ class GuiTcp:
                    command=lambda: self.saveAsFile(calcTool)).grid(column=3, row=2,
                                                               sticky=W, padx=5, pady=5)
         
-        ttk.Button(results, text="Close", command=results.destroy).grid(column=4, row=2,
-                                                                        sticky=W, padx=5, pady=5)
+        ttk.Button(results, text="Close",
+                   command=results.destroy).grid(column=4, row=2,
+                                                 sticky=W, padx=5, pady=5)
 
     def createTool(self):
         pos = [float(self.xStr.get()), float(self.yStr.get()), float(self.zStr.get())]
-        quat = [float(self.q1Str.get()), float(self.q2Str.get()), float(self.q3Str.get()), float(self.q4Str.get())]
-        cog = [float(self.massStr.get()), float(self.cogXStr.get()), float(self.cogYStr.get()), float(self.cogZStr.get())]
-        orient = [float(self.orientQ1Str.get()), float(self.orientQ2Str.get()), float(self.orientQ3Str.get()), float(self.orientQ4Str.get())]
+        quat = [float(self.q1Str.get()), float(self.q2Str.get()), float(self.q3Str.get()),
+                float(self.q4Str.get())]
+        cog = [float(self.massStr.get()), float(self.cogXStr.get()),
+               float(self.cogYStr.get()), float(self.cogZStr.get())]
+        orient = [float(self.orientQ1Str.get()), float(self.orientQ2Str.get()),
+                  float(self.orientQ3Str.get()), float(self.orientQ4Str.get())]
         moi = [float(self.moiXStr.get()), float(self.moiYStr.get()), float(self.moiZStr.get())]
 
-        return  Tool(self.nameStr.get(), self.mountedStr.get(), pos, quat, cog, orient, moi)        
-
+        return  Tool(self.nameStr.get(), self.mountedStr.get(), pos, quat, cog, orient, moi)
+    
     def rootSaveFile(self):
         self.saveFile(self.createTool())
 
@@ -245,7 +252,9 @@ class GuiTcp:
             for item in toolData.dictArray:
                 choices.append(item["name"])
             choicesVar = StringVar(value=choices)
-            okay = ttk.Button(selectTool, text="Okay", command=lambda:self.okayPress(selectTool, toolData.dictArray[lbox.curselection()[0]]))
+            okay = ttk.Button(selectTool, text="Okay")
+            okay.configure(command=lambda:self.okayPress(selectTool,
+                                                         toolData.dictArray[lbox.curselection()[0]]))
             okay.grid(column=2, row=1, sticky=(S, E))
             lbox = Listbox(selectTool, listvariable=choicesVar)
             lbox.grid(column=1, row=1, sticky=(N, S, W))
@@ -281,7 +290,3 @@ class GuiTcp:
     def okayPress(self, st, chosen):
         self.setData(chosen)
         st.destroy()
-
-root = Tk()
-GuiTcp(root)
-root.mainloop()
