@@ -1,24 +1,37 @@
+#Class to parse tool data from an ABB config file
 class ToolParse:
 
+    #Constructor needs a file path argument passed to it
     def __init__(self, f):
+        #File path
         self.f = f
+        #Array of all lines in file f
         self.lineArray = []
         self.toArray(self.f)
+        #Array of lines containing tool data
         self.toolLines = []
         self.locateTool(self.lineArray)
+        #Array of dictionaries one dictionary for each tool
         self.dictArray = []
         self.splitTool(self.toolLines)
 
+    #toArray() method creates an array of lines
+    #Must pass file path as argument 
     def toArray(self, f):
         with open(f) as f:
             for line in f:
                 self.lineArray.append(line)
 
+    #locateTool() method finds lines containing tooldata
+    #Must pass an array of lines
     def locateTool(self, lineArray):
         for line in lineArray:
             if line.strip().startswith("PERS tooldata") and line.strip().endswith(";"):
                 self.toolLines.append(line)
 
+    #splitTool() method takes a tooldata line and splits it into a dictionary
+    #Must pass an array of lines containing tooldata
+    #Appends resulting dictionary to self.dictArray
     def splitTool(self, rawTools):
         for item in rawTools:
             toolDict = dict()
@@ -46,4 +59,3 @@ class ToolParse:
             toolDict["moiY"] = commaSplit[17]
             toolDict["moiZ"] = commaSplit[18].strip("]];")
             self.dictArray.append(toolDict)
-
