@@ -9,7 +9,6 @@ from parse import ToolParse
 class GuiTcp:
 
     def __init__(self, root):
-        
         #Configure root window parameters
         root.title("Recalculate TCP")
         root.columnconfigure(0, weight=1)
@@ -187,9 +186,11 @@ class GuiTcp:
         dispVector = [float(self.dispXStr.get()), float(self.dispYStr.get()),
                       float(self.dispZStr.get())]
         #Using the Tool class, create tool object from entered values
-        #ToDo: make conditional for world or tool
         calcTool = self.createTool()
-        calcTool.displaceTool(dispVector)
+        if self.frameStr.get() == "tool": 
+            calcTool.displaceTool(dispVector)
+        else:
+            calcTool.displaceWorld(dispVector)
 
         #Display results in a popup window
         results = Toplevel()
