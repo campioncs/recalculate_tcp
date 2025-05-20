@@ -114,9 +114,9 @@ class GuiTcp:
 
         #Displacement value entry frame
         #Initialize displacement variables, entry boxes, and labels
-        self.dispXStr = StringVar()
-        self.dispYStr = StringVar()
-        self.dispZStr = StringVar()
+        self.dispXStr = StringVar(value="0")
+        self.dispYStr = StringVar(value="0")
+        self.dispZStr = StringVar(value="0")
         dispXEntry = ttk.Entry(displaceFrame, width=9, textvariable=self.dispXStr)
         dispYEntry = ttk.Entry(displaceFrame, width=9, textvariable=self.dispYStr)
         dispZEntry = ttk.Entry(displaceFrame, width=9, textvariable=self.dispZStr)
