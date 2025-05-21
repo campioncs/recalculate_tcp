@@ -1,11 +1,28 @@
 import numpy as np
 
-#Class to create a Tool object
 class Tool:
-    #Constructor expects arguments in format (string, string, float[], float[],
-    #                                         float[], float[], float[])
-    #Mass is expected to be the first value in the cog array
+    """Tool creates an object from tooldata"""
     def __init__(self, name, mounted, pos, quat, cog, orient, moi):
+        """Initializes the tool instance from tooldata
+
+        Args:
+          name:
+            Name of tool as a string.
+          mounted:
+            Is the tool mounted to the robot as string "TRUE" or "FALSE".
+          pos:
+            3 item array of floats containg x, y, and z values for the tool.
+          quat:
+            4 item array of floats containg the quaternation for the tool.
+          cog:
+            4 iterm array of floats containing mass as item[0], and
+            center of gravity x, y, and z for items[1-3].
+          orient:
+            4 item array of floats containing quaternation for tool rotation.
+          moi:
+            3 item array of floats containing moments of intertia
+            for x, y, and z.
+        """
         self.name = name
         self.mounted = mounted
         self.pos = pos
@@ -15,9 +32,13 @@ class Tool:
         self.moi = moi
         self.rotated = self.toRotationMatrix()
 
-    #__str__() method creates a string from a Tool object
     def __str__(self):
-        #Initialize arrays for values rounded to 6 decimal places
+        """Creates a string from a tool object in format of abb tooldata.
+
+        Returns:
+          A string in format of abb tooldata.
+        """
+        #Create arrays for values rounded to 6 decimal places
         roundPos = []
         roundQuat = []
         #Round mass and cog values seperate to make formating easyier
@@ -47,6 +68,11 @@ class Tool:
     #toRotationMatrix() method creates a rotation matrix
     #from a quaternation array
     def toRotationMatrix(self):
+        """Creates a rotation matrix from a tool quaternation.
+
+        Returns:
+           A rotation matrix in form of 2 dimensional array.
+        """
         #Normalize the quaternation
         qa = np.array(self.quat, float)
         norm = np.sqrt(sum(np.square(qa)))
@@ -65,25 +91,39 @@ class Tool:
 
         return r
 
-    #multiply() a rotation matrix by a vectory
-    #Must pass a rotation matrix as a two demensional array
-    #and a vector as a single deminsonal array
     def multiply(self, r, v):
+        """Multiplies a matrix by a vector.
+
+        Args:
+          r:
+            Rotation matrix.
+          v:
+            vector.
+        
+          Returns:
+            resuls of multiplying r by v.
+        """
         return np.dot(r,v)
 
-    #displaceTool() method adjustes the postion array of the
-    #tool object by the tool frame.
-    #Must pass a 3x1 float[] as an argument
     def displaceTool(self, coord):
+        """Mutates tool position by the tool frame.
+
+        Args:
+          coord:
+            3 item array of floats x, y, and z coordinates to displace tool by.
+        """
         newPos = self.multiply(self.rotated, coord)
         self.pos[0] = float(newPos[0] + self.pos[0])
         self.pos[1] = float(newPos[1] + self.pos[1])
         self.pos[2] = float(newPos[2] + self.pos[2])
 
-    #displaceWorld() method adjustes the postion array of the
-    #tool object by the world frame.
-    #Must pass a 3x1 float[] as an argument
     def displaceWorld(self, coord):
+        """Mutates tool position by the world frame.
+
+        Args:
+          coord:
+            3 item array of floats x, y, and z coordinates to displace world by.
+        """
         self.pos[0] = coord[0] + self.pos[0]
         self.pos[1] = coord[1] + self.pos[1]
         self.pos[2] = coord[2] + self.pos[2]
