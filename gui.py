@@ -188,9 +188,9 @@ class GuiTcp:
         #Using the Tool class, create tool object from entered values
         calcTool = self.createTool()
         if self.frameStr.get() == "tool": 
-            calcTool.displaceTool(dispVector)
+            calcTool.displace_tool(dispVector)
         else:
-            calcTool.displaceWorld(dispVector)
+            calcTool.displace_world(dispVector)
 
         #Display results in a popup window
         results = Toplevel()

@@ -1,3 +1,5 @@
+"""Tool module contains classes for working with robot tools.
+"""
 import numpy as np
 
 class Tool:
@@ -30,7 +32,7 @@ class Tool:
         self.cog = cog
         self.orient = orient
         self.moi = moi
-        self.rotated = self.toRotationMatrix()
+        self.rotated = self.to_rotation_matrix()
 
     def __str__(self):
         """Creates a string from a tool object in format of abb tooldata.
@@ -39,35 +41,33 @@ class Tool:
           A string in format of abb tooldata.
         """
         #Create arrays for values rounded to 6 decimal places
-        roundPos = []
-        roundQuat = []
+        round_pos = []
+        round_quat = []
         #Round mass and cog values seperate to make formating easyier
-        roundMass = round(self.cog[0])
-        roundCog = [round(self.cog[1], 6), round(self.cog[2], 6), round(self.cog[3], 6)]
-        roundOrient = []
-        roundMoi = []
+        round_mass = round(self.cog[0])
+        round_cog = [round(self.cog[1], 6), round(self.cog[2], 6), round(self.cog[3], 6)]
+        round_orient = []
+        round_moi = []
 
         #Loop through each parameter and append rounded value to array
         for item in self.pos:
-            roundPos.append(round(item, 6))
+            round_pos.append(round(item, 6))
         for item in self.quat:
-            roundQuat.append(round(item, 6))
+            round_quat.append(round(item, 6))
         for item in self.orient:
-            roundOrient.append(round(item, 6))
+            round_orient.append(round(item, 6))
         for item in self.moi:
-            roundMoi.append(round(item, 6))
+            round_moi.append(round(item, 6))
 
         #Create string from rounded data and format as ABB tooldata line
-        toolStr = ("PERS tooldata " + str(self.name) + ":=[" + str(self.mounted) + ",[" +
-                   str(roundPos).replace(" ", "") + "," + str(roundQuat).replace(" ", "") +
-                   "],[" + str(roundMass) + "," + str(roundCog).replace(" ", "") + "," +
-                   str(roundOrient).replace(" ", "") + "," + str(roundMoi[0]) + "," +
-                   str(roundMoi[1]) + "," + str(roundMoi[2]) +  "]];")
-        return toolStr
+        tool_string = ("PERS tooldata " + str(self.name) + ":=[" + str(self.mounted) + ",[" +
+                   str(round_pos).replace(" ", "") + "," + str(round_quat).replace(" ", "") +
+                   "],[" + str(round_mass) + "," + str(round_cog).replace(" ", "") + "," +
+                   str(round_orient).replace(" ", "") + "," + str(round_moi[0]) + "," +
+                   str(round_moi[1]) + "," + str(round_moi[2]) +  "]];")
+        return tool_string
 
-    #toRotationMatrix() method creates a rotation matrix
-    #from a quaternation array
-    def toRotationMatrix(self):
+    def to_rotation_matrix(self):
         """Creates a rotation matrix from a tool quaternation.
 
         Returns:
@@ -87,7 +87,7 @@ class Tool:
         r[1][2] = 2 * (qa[2] * qa[3] - qa[0] * qa[1])
         r[2][0] = 2 * (qa[1] * qa[3] - qa[0] * qa[2])
         r[2][1] = 2 * (qa[2] * qa[3] + qa[0] * qa[1])
-        r[2][2] = 1 - 2 * (np.square(qa[1]) + np.square(qa[2]))    
+        r[2][2] = 1 - 2 * (np.square(qa[1]) + np.square(qa[2]))
 
         return r
 
@@ -105,19 +105,19 @@ class Tool:
         """
         return np.dot(r,v)
 
-    def displaceTool(self, coord):
+    def displace_tool(self, coord):
         """Mutates tool position by the tool frame.
 
         Args:
           coord:
             3 item array of floats x, y, and z coordinates to displace tool by.
         """
-        newPos = self.multiply(self.rotated, coord)
-        self.pos[0] = float(newPos[0] + self.pos[0])
-        self.pos[1] = float(newPos[1] + self.pos[1])
-        self.pos[2] = float(newPos[2] + self.pos[2])
+        new_pos = self.multiply(self.rotated, coord)
+        self.pos[0] = float(new_pos[0] + self.pos[0])
+        self.pos[1] = float(new_pos[1] + self.pos[1])
+        self.pos[2] = float(new_pos[2] + self.pos[2])
 
-    def displaceWorld(self, coord):
+    def displace_world(self, coord):
         """Mutates tool position by the world frame.
 
         Args:
@@ -127,4 +127,3 @@ class Tool:
         self.pos[0] = coord[0] + self.pos[0]
         self.pos[1] = coord[1] + self.pos[1]
         self.pos[2] = coord[2] + self.pos[2]
-        
