@@ -1,9 +1,13 @@
-#Class to parse tool data from an ABB config file
+""" Parse module contains classes for parsing tool data."""
 class ToolParse:
-
-    #Constructor needs a file path argument passed to it
+    """Class to parse tooldata from an abb config file"""
     def __init__(self, f):
-        #File path
+        """Initilizes a ToolParse object.
+        
+        Args:
+          f:
+            File path to parse.
+        """
         self.f = f
         #Array of all lines in file f
         self.lineArray = []
@@ -15,25 +19,36 @@ class ToolParse:
         self.dictArray = []
         self.splitTool(self.toolLines)
 
-    #toArray() method creates an array of lines
-    #Must pass file path as argument 
     def toArray(self, f):
+        """Opens file f and creates an array of lines.
+
+        Args:
+          f:
+            File path to open.
+        """
         with open(f) as f:
             for line in f:
                 self.lineArray.append(line)
 
-    #locateTool() method finds lines containing tooldata
-    #Must pass an array of lines
-    def locateTool(self, lineArray):
-        for line in lineArray:
+    def locateTool(self, line_array):
+        """Locates tooldata lines from array.
+
+        Args:
+          line_array:
+            Array of lines to locate tooldata from.
+        """
+        for line in line_array:
             if line.strip().startswith("PERS tooldata") and line.strip().endswith(";"):
                 self.toolLines.append(line)
 
-    #splitTool() method takes a tooldata line and splits it into a dictionary
-    #Must pass an array of lines containing tooldata
-    #Appends resulting dictionary to self.dictArray
-    def splitTool(self, rawTools):
-        for item in rawTools:
+    def splitTool(self, raw_tools):
+        """Takes an array of lines with tooldata and splits them into a dictionary.
+
+        Args:
+          raw_tools:
+            array of tooldata lines
+        """
+        for item in raw_tools:
             toolDict = dict()
             spaceSplit = item.split()
             colonSplit = spaceSplit[2].split(":")
@@ -58,4 +73,5 @@ class ToolParse:
             toolDict["moiX"] = commaSplit[16]
             toolDict["moiY"] = commaSplit[17]
             toolDict["moiZ"] = commaSplit[18].strip("]];")
+            #Append dictionary to self.dict_array
             self.dictArray.append(toolDict)
