@@ -1,8 +1,6 @@
 """gui module builds the grphical interface for recalculate_tcp."""
-from tkinter import *
-from tkinter import filedialog
-from tkinter import messagebox
-from tkinter import ttk
+#from tkinter import *
+from tkinter import filedialog, messagebox, ttk, Listbox, StringVar, Toplevel, N, S, E, W
 from tool import Tool
 from parse import AbbToolParse
 
@@ -36,11 +34,11 @@ class GuiTcp:
         self.x_str = StringVar()
         self.y_str = StringVar()
         self.z_str = StringVar()
-        nameEntry = ttk.Entry(data_frame, width=9, textvariable=self.name_str)
+        name_entry = ttk.Entry(data_frame, width=9, textvariable=self.name_str)
         x_entry = ttk.Entry(data_frame, width=9, textvariable=self.x_str)
         y_entry = ttk.Entry(data_frame, width=9, textvariable=self.y_str)
         z_entry = ttk.Entry(data_frame, width=9, textvariable=self.z_str)
-        nameEntry.grid(column=2, row=1, sticky=(W, E))
+        name_entry.grid(column=2, row=1, sticky=(W, E))
         x_entry.grid(column=2, row=2, sticky=(W, E))
         y_entry.grid(column=2, row=3, sticky=(W, E))
         z_entry.grid(column=2, row=4, sticky=(W, E))
@@ -161,11 +159,11 @@ class GuiTcp:
 
         #Button frame
         ttk.Button(button_frame, text="Load tool from file",
-                   command=self.loadTool).grid(column=1, row=1, sticky=(S, W))
+                   command=self.load_tool).grid(column=1, row=1, sticky=(S, W))
         ttk.Button(button_frame, text="Save to file",
-                   command=self.rootSaveFile).grid(column=1, row=2, sticky=(S, W))
+                   command=self.root_save_file).grid(column=1, row=2, sticky=(S, W))
         ttk.Button(button_frame, text="Save to new file",
-                   command=self.rootSaveAsFile).grid(column=1, row=3, sticky=(S, W))
+                   command=self.root_save_as_file).grid(column=1, row=3, sticky=(S, W))
         ttk.Button(button_frame, text="Calculate",
                    command=self.calculate).grid(column=2, row=1, sticky=(S, W), rowspan=3)
 
@@ -190,7 +188,7 @@ class GuiTcp:
         disp_vector = [float(self.disp_x_str.get()), float(self.disp_y_str.get()),
                       float(self.disp_z_str.get())]
         #Using the Tool class, create tool object from entered values
-        calc_tool = self.createTool()
+        calc_tool = self.create_tool()
         if self.frame_str.get() == "tool":
             calc_tool.displace_tool(disp_vector)
         else:
@@ -203,19 +201,19 @@ class GuiTcp:
                   font=("Helvetica", 10, "bold")).grid(column=1, row=1, sticky=W,
                                                       columnspan=4, padx=5, pady=5)
         ttk.Button(results, text="Copy to clipboard",
-                   command=lambda: self.toClip(results,calc_tool)).grid(column=1, row=2,
+                   command=lambda: self.to_clip(results,calc_tool)).grid(column=1, row=2,
                                                                        sticky=W, padx=5, pady=5)
         ttk.Button(results, text="Save to File",
-                   command=lambda: self.saveFile(calc_tool)).grid(column=2, row=2,
+                   command=lambda: self.save_file(calc_tool)).grid(column=2, row=2,
                                                               sticky=W, padx=5, pady=5)
         ttk.Button(results, text="Save to new File",
-                   command=lambda: self.saveAsFile(calc_tool)).grid(column=3, row=2,
+                   command=lambda: self.save_as_file(calc_tool)).grid(column=3, row=2,
                                                               sticky=W, padx=5, pady=5)
         ttk.Button(results, text="Close",
                    command=results.destroy).grid(column=4, row=2,
                                                  sticky=W, padx=5, pady=5)
 
-    def createTool(self):
+    def create_tool(self):
         """Creates a tool object from entered data.
 
         Returns:
@@ -230,21 +228,22 @@ class GuiTcp:
                float(self.cog_y_str.get()), float(self.cog_z_str.get())]
         orient = [float(self.orient_q1_str.get()), float(self.orient_q2_str.get()),
                   float(self.orient_q3_str.get()), float(self.orient_q4_str.get())]
-        moi = [float(self.moi_x_str.get()), float(self.moi_y_str.get()), float(self.moi_z_str.get())]
+        moi = [float(self.moi_x_str.get()), float(self.moi_y_str.get()),
+               float(self.moi_z_str.get())]
 
         #Return tool object
         return  Tool(self.name_str.get(), self.mounted_str.get(), pos, quat, cog, orient, moi)
 
 
-    def rootSaveFile(self):
+    def root_save_file(self):
         """Save file button for root window when tool object needs to be crated."""
-        self.saveFile(self.createTool())
+        self.save_file(self.create_tool())
 
-    def rootSaveAsFile(self):
+    def root_save_as_file(self):
         """Save new file button for root window when tool object needs to be crated."""
-        self.saveAsFile(self.createTool())
+        self.save_as_file(self.create_tool())
 
-    def saveFile(self, tool):
+    def save_file(self, tool):
         """creates a file dialog to append tool to existing file.
 
         Args:
@@ -257,7 +256,7 @@ class GuiTcp:
         #Generate popup on success
         messagebox.showinfo("Tool Saved", tool.name + " saved to " + save_filename)
 
-    def saveAsFile(self, tool):
+    def save_as_file(self, tool):
         """Creates a file dialog to append tool to a new file.
 
         Args:
@@ -270,7 +269,7 @@ class GuiTcp:
         #Generates popup on success
         messagebox.showinfo("Tool Saved", tool.name + " saved to " + save_filename)
 
-    def toClip(self, window, data):
+    def to_clip(self, window, data):
         """Copies data to clipboard
 
         Args:
@@ -283,7 +282,7 @@ class GuiTcp:
         window.clipboard_append(data)
         window.update()
 
-    def loadTool(self):
+    def load_tool(self):
         """Loads a tool from a file, parses tooldata, and fills in all the fields."""
         #Prompt user to select file
         filename = filedialog.askopenfilename()
@@ -303,9 +302,9 @@ class GuiTcp:
             #Configure listbox from choices
             choices_var = StringVar(value=choices)
             #Okay button passes window and chosen tool dictionary
-            #to okayPress() method
+            #to okay_press() method
             okay = ttk.Button(select_tool, text="Okay")
-            okay.configure(command=lambda:self.okayPress(select_tool,
+            okay.configure(command=lambda:self.okay_press(select_tool,
                                                          tool_data.dict_array[lbox.curselection()[0]]))
             #Grid okay button, and listbox
             okay.grid(column=2, row=1, sticky=(S, E))
@@ -319,9 +318,9 @@ class GuiTcp:
         else:
             #Else only one tool found
             #Set all data fields from the dictionary
-            self.setData(tool_data.dict_array[0])
+            self.set_data(tool_data.dict_array[0])
 
-    def setData(self, chosen):
+    def set_data(self, chosen):
         """Sets all entry boxes from a tool dictionary.
 
         Args:
@@ -349,7 +348,7 @@ class GuiTcp:
         self.moi_y_str.set(chosen["moiY"])
         self.moi_z_str.set(chosen["moiZ"])
 
-    def okayPress(self, st, chosen):
+    def okay_press(self, st, chosen):
         """method to handle okay button from listbox.
 
         Args:
@@ -358,6 +357,6 @@ class GuiTcp:
           chosen:
             tool dictionary chosen from listbox.
         """
-        self.setData(chosen)
+        self.set_data(chosen)
         #Close parent window
         st.destroy()
