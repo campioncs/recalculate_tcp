@@ -1,5 +1,5 @@
 """ Parse module contains classes for parsing tool data."""
-class ToolParse:
+class AbbToolParse:
     """Class to parse tooldata from an abb config file"""
     def __init__(self, f):
         """Initilizes a ToolParse object.
@@ -10,27 +10,27 @@ class ToolParse:
         """
         self.f = f
         #Array of all lines in file f
-        self.lineArray = []
-        self.toArray(self.f)
+        self.line_array = []
+        self.to_array(self.f)
         #Array of lines containing tool data
-        self.toolLines = []
-        self.locateTool(self.lineArray)
+        self.tool_lines = []
+        self.locate_tool(self.line_array)
         #Array of dictionaries one dictionary for each tool
-        self.dictArray = []
-        self.splitTool(self.toolLines)
+        self.dict_array = []
+        self.split_tool(self.tool_lines)
 
-    def toArray(self, f):
-        """Opens file f and creates an array of lines.
+    def to_array(self, f_path):
+        """Opens file f_path and creates an array of lines.
 
         Args:
-          f:
+          f_path:
             File path to open.
         """
-        with open(f) as f:
+        with open(f_path, encoding="utf-8") as f:
             for line in f:
-                self.lineArray.append(line)
+                self.line_array.append(line)
 
-    def locateTool(self, line_array):
+    def locate_tool(self, line_array):
         """Locates tooldata lines from array.
 
         Args:
@@ -39,9 +39,9 @@ class ToolParse:
         """
         for line in line_array:
             if line.strip().startswith("PERS tooldata") and line.strip().endswith(";"):
-                self.toolLines.append(line)
+                self.tool_lines.append(line)
 
-    def splitTool(self, raw_tools):
+    def split_tool(self, raw_tools):
         """Takes an array of lines with tooldata and splits them into a dictionary.
 
         Args:
@@ -49,29 +49,29 @@ class ToolParse:
             array of tooldata lines
         """
         for item in raw_tools:
-            toolDict = dict()
-            spaceSplit = item.split()
-            colonSplit = spaceSplit[2].split(":")
-            toolDict["name"] = colonSplit[0]
-            commaSplit = colonSplit[1].split(",")
-            toolDict["mounted"] = commaSplit[0].strip("=[")
-            toolDict["x"] = commaSplit[1].strip("[")
-            toolDict["y"] = commaSplit[2]
-            toolDict["z"] = commaSplit[3].strip("]")
-            toolDict["q1"] = commaSplit[4].strip("[")
-            toolDict["q2"] = commaSplit[5]
-            toolDict["q3"] = commaSplit[6]
-            toolDict["q4"] = commaSplit[7].strip("]")
-            toolDict["mass"] = commaSplit[8].strip("[")
-            toolDict["cogX"] = commaSplit[9].strip("[")
-            toolDict["cogY"] = commaSplit[10]
-            toolDict["cogZ"] = commaSplit[11].strip("]")
-            toolDict["orientQ1"] = commaSplit[12].strip("[")
-            toolDict["orientQ2"] = commaSplit[13]
-            toolDict["orientQ3"] = commaSplit[14]
-            toolDict["orientQ4"] = commaSplit[15].strip("]")
-            toolDict["moiX"] = commaSplit[16]
-            toolDict["moiY"] = commaSplit[17]
-            toolDict["moiZ"] = commaSplit[18].strip("]];")
+            tool_dict = {}
+            space_split = item.split()
+            colon_split = space_split[2].split(":")
+            tool_dict["name"] = colon_split[0]
+            comma_split = colon_split[1].split(",")
+            tool_dict["mounted"] = comma_split[0].strip("=[")
+            tool_dict["x"] = comma_split[1].strip("[")
+            tool_dict["y"] = comma_split[2]
+            tool_dict["z"] = comma_split[3].strip("]")
+            tool_dict["q1"] = comma_split[4].strip("[")
+            tool_dict["q2"] = comma_split[5]
+            tool_dict["q3"] = comma_split[6]
+            tool_dict["q4"] = comma_split[7].strip("]")
+            tool_dict["mass"] = comma_split[8].strip("[")
+            tool_dict["cogX"] = comma_split[9].strip("[")
+            tool_dict["cogY"] = comma_split[10]
+            tool_dict["cogZ"] = comma_split[11].strip("]")
+            tool_dict["orientQ1"] = comma_split[12].strip("[")
+            tool_dict["orientQ2"] = comma_split[13]
+            tool_dict["orientQ3"] = comma_split[14]
+            tool_dict["orientQ4"] = comma_split[15].strip("]")
+            tool_dict["moiX"] = comma_split[16]
+            tool_dict["moiY"] = comma_split[17]
+            tool_dict["moiZ"] = comma_split[18].strip("]];")
             #Append dictionary to self.dict_array
-            self.dictArray.append(toolDict)
+            self.dict_array.append(tool_dict)

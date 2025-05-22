@@ -1,15 +1,20 @@
+"""gui module builds the grphical interface for recalculate_tcp."""
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
 from tkinter import ttk
 from tool import Tool
-from parse import ToolParse
+from parse import AbbToolParse
 
-#Class to create the interface for recalculate_tcp
 class GuiTcp:
-
+    """gui module builds the grphical interface for recalculate_tcp."""
     def __init__(self, root):
-        #Configure root window parameters
+        """Initilizes root window and locates all graphical objects.
+
+        Args:
+          root:
+            Root TK window to add objects too.
+        """
         root.title("Recalculate TCP")
         root.columnconfigure(0, weight=1)
         root.rowconfigure(0, weight=1)
@@ -178,9 +183,8 @@ class GuiTcp:
             child.grid_configure(padx=3, pady=5)
             root.bind("<Return>", self.calculate)
 
-    #GUI class methods
-    #Calculate button
     def calculate(self, event=None):
+        """Creates a top level window and presents the results of calculation."""
         #Get displacement values as string.
         #Convert them to floating point numbers, and create array
         dispVector = [float(self.dispXStr.get()), float(self.dispYStr.get()),
@@ -211,9 +215,12 @@ class GuiTcp:
                    command=results.destroy).grid(column=4, row=2,
                                                  sticky=W, padx=5, pady=5)
 
-    #Create tool method
-    #Returns Tool
     def createTool(self):
+        """Creates a tool object from entered data.
+
+        Returns:
+          Tool object.
+        """
         #Convert entered data into floating point numbers
         #ToDo: add error checking
         pos = [float(self.xStr.get()), float(self.yStr.get()), float(self.zStr.get())]
@@ -228,60 +235,70 @@ class GuiTcp:
         #Return tool object
         return  Tool(self.nameStr.get(), self.mountedStr.get(), pos, quat, cog, orient, moi)
 
-    #Method for the root window save file
-    #Creates tool, and calls the normal saveFile()
+
     def rootSaveFile(self):
+        """Save file button for root window when tool object needs to be crated."""
         self.saveFile(self.createTool())
 
-    #method for root window Save new file
-    #creates tool, and calls the normale saveAsFile()
     def rootSaveAsFile(self):
+        """Save new file button for root window when tool object needs to be crated."""
         self.saveAsFile(self.createTool())
 
-    #SaveFile method
-    #Must pass a tool object as an argument
-    #Asks user to pick a file to save tool
-    #Generates popup on sucsess
     def saveFile(self, tool):
+        """creates a file dialog to append tool to existing file.
+
+        Args:
+          tool:
+            Tool object to save.
+        """
         saveFilename = filedialog.askopenfilename()
         with open(saveFilename, "a") as f:
             f.write(str(tool) + "\n")
+        #Generate popup on success
         messagebox.showinfo("Tool Saved", tool.name + " saved to " + saveFilename)
 
-    #SaveAsFile method creates a new file to save tool
-    #Must pass a tool object as an argument
-    #Generates popup on sucsess    
     def saveAsFile(self, tool):
+        """Creates a file dialog to append tool to a new file.
+
+        Args:
+          tool:
+            Tool object to save.
+        """
         saveFilename = filedialog.asksaveasfilename()
         with open(saveFilename, "a") as f:
             f.write(str(tool) + "\n")
+        #Generates popup on success
         messagebox.showinfo("Tool Saved", tool.name + " saved to " + saveFilename)
 
-    #toClip method
-    #Must pass a window frame as argument one, and string as argument two
-    #Copies the data string to the clipboard
     def toClip(self, window, data):
+        """Copies data to clipboard
+
+        Args:
+          window:
+            TK frame
+          data:
+            Sting to be copied to clipboard
+        """
         window.clipboard_clear()
         window.clipboard_append(data)
         window.update()
 
-    #loadTool method
-    #Uses the ToolParse class to extract tool data from a file
     def loadTool(self):
+        """Loads a tool from a file, parses tooldata, and fills in all the fields."""
         #Prompt user to select file
         filename = filedialog.askopenfilename()
-        #Create ToolParseobject from file 
-        toolData = ToolParse(filename)
+        #Create AbbToolParseobject from file 
+        toolData = AbbToolParse(filename)
         #Check if more than one tool was found
         #ToDo create notice if no tools were wound
-        if len(toolData.dictArray) > 1:
+        if len(toolData.dict_array) > 1:
             #If more than one tool was found,
             #create a new window for user to select one
             selectTool = Toplevel()
             selectTool.title("Select tool to modify")
             #Create an array of the name of each tool found
             choices = []
-            for item in toolData.dictArray:
+            for item in toolData.dict_array:
                 choices.append(item["name"])
             #Configure listbox from choices
             choicesVar = StringVar(value=choices)
@@ -289,7 +306,7 @@ class GuiTcp:
             #to okayPress() method
             okay = ttk.Button(selectTool, text="Okay")
             okay.configure(command=lambda:self.okayPress(selectTool,
-                                                         toolData.dictArray[lbox.curselection()[0]]))
+                                                         toolData.dict_array[lbox.curselection()[0]]))
             #Grid okay button, and listbox
             okay.grid(column=2, row=1, sticky=(S, E))
             lbox = Listbox(selectTool, listvariable=choicesVar)
@@ -302,12 +319,15 @@ class GuiTcp:
         else:
             #Else only one tool found
             #Set all data fields from the dictionary 
-            self.setData(toolData.dictArray[0])
+            self.setData(toolData.dict_array[0])
 
-    #setData method
-    #Must pass parse dictionary
-    #Sets all data fields
     def setData(self, chosen):
+        """Sets all entry boxes from a tool dictionary.
+
+        Args:
+          chosen:
+           Tool dictonary chosen to enter.
+        """
         self.nameStr.set(chosen["name"])
         self.mountedStr.set(chosen["mounted"])
         self.xStr.set(chosen["x"])
@@ -329,10 +349,15 @@ class GuiTcp:
         self.moiYStr.set(chosen["moiY"])
         self.moiZStr.set(chosen["moiZ"])
 
-    #okayPress method
-    #Must pass a parent window, and parse dictionary
-    #Calls set data with dictionary
-    #Destroies parent window
     def okayPress(self, st, chosen):
+        """method to handle okay button from listbox.
+
+        Args:
+          st:
+            parent window frame.
+          chosen:
+            tool dictionary chosen from listbox.
+        """
         self.setData(chosen)
+        #Close parent window
         st.destroy()

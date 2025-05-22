@@ -1,4 +1,4 @@
-#Launches recalculate interface
+"""Launches recalculate interface"""
 from tkinter import Tk
 from gui import GuiTcp
 #Create root window

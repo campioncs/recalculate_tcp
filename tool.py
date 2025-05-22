@@ -1,5 +1,4 @@
-"""Tool module contains classes for working with robot tools.
-"""
+"""Tool module contains classes for working with robot tools."""
 import numpy as np
 
 class Tool:
@@ -43,7 +42,7 @@ class Tool:
         #Create arrays for values rounded to 6 decimal places
         round_pos = []
         round_quat = []
-        #Round mass and cog values seperate to make formating easyier
+        #Round mass and cog values seperate to make formating easier
         round_mass = round(self.cog[0])
         round_cog = [round(self.cog[1], 6), round(self.cog[2], 6), round(self.cog[3], 6)]
         round_orient = []
