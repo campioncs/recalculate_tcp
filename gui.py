@@ -22,7 +22,7 @@ class GuiTcp:
         #Create inner frames
         dataFrame = ttk.Frame(root, padding="3 3 12 12")
         displaceFrame = ttk.Frame(root, padding="3 3 12 12")
-        radioFrame = ttk.Frame(root, padding="3 3 12 12")        
+        radioFrame = ttk.Frame(root, padding="3 3 12 12")
         buttonFrame = ttk.Frame(root, padding="3 3 12 12")
         #Grid inner frames
         dataFrame.grid(column=0, row=0, sticky=(N, W, E, S), columnspan=2)
@@ -32,76 +32,76 @@ class GuiTcp:
 
         #Data entry Frame
         #Initialize name and postion variables, entry boxes, and labels
-        self.nameStr = StringVar()
-        self.xStr = StringVar()
-        self.yStr = StringVar()
-        self.zStr = StringVar()
-        nameEntry = ttk.Entry(dataFrame, width=9, textvariable=self.nameStr)
-        xEntry = ttk.Entry(dataFrame, width=9, textvariable=self.xStr)
-        yEntry = ttk.Entry(dataFrame, width=9, textvariable=self.yStr)
-        zEntry = ttk.Entry(dataFrame, width=9, textvariable=self.zStr)
+        self.name_str = StringVar()
+        self.x_str = StringVar()
+        self.y_str = StringVar()
+        self.z_str = StringVar()
+        nameEntry = ttk.Entry(dataFrame, width=9, textvariable=self.name_str)
+        x_entry = ttk.Entry(dataFrame, width=9, textvariable=self.x_str)
+        y_entry = ttk.Entry(dataFrame, width=9, textvariable=self.y_str)
+        z_entry = ttk.Entry(dataFrame, width=9, textvariable=self.z_str)
         nameEntry.grid(column=2, row=1, sticky=(W, E))
-        xEntry.grid(column=2, row=2, sticky=(W, E))
-        yEntry.grid(column=2, row=3, sticky=(W, E))
-        zEntry.grid(column=2, row=4, sticky=(W, E))
+        x_entry.grid(column=2, row=2, sticky=(W, E))
+        y_entry.grid(column=2, row=3, sticky=(W, E))
+        z_entry.grid(column=2, row=4, sticky=(W, E))
         ttk.Label(dataFrame, text="Name:").grid(column=1, row=1, sticky=W)
         ttk.Label(dataFrame, text="X:").grid(column=1, row=2, sticky=W)
         ttk.Label(dataFrame, text="Y:").grid(column=1, row=3, sticky=W)
         ttk.Label(dataFrame, text="Z:").grid(column=1, row=4, sticky=W)
 
         #Initialize quaternation variables, entry boxes, and labels
-        self.q1Str = StringVar()
-        self.q2Str = StringVar()
-        self.q3Str = StringVar()
-        self.q4Str = StringVar()
-        q1StrEntry = ttk.Entry(dataFrame, width=9, textvariable=self.q1Str)
-        q2StrEntry = ttk.Entry(dataFrame, width=9, textvariable=self.q2Str)
-        q3StrEntry = ttk.Entry(dataFrame, width=9, textvariable=self.q3Str)
-        q4StrEntry = ttk.Entry(dataFrame, width=9, textvariable=self.q4Str)
-        q1StrEntry.grid(column=4, row=1, sticky=(E, W))
-        q2StrEntry.grid(column=4, row=2, sticky=(E, W))       
-        q3StrEntry.grid(column=4, row=3, sticky=(E, W))
-        q4StrEntry.grid(column=4, row=4, sticky=(E, W))
+        self.q1_str = StringVar()
+        self.q2_str = StringVar()
+        self.q3_str = StringVar()
+        self.q4_str = StringVar()
+        q1_entry = ttk.Entry(dataFrame, width=9, textvariable=self.q1_str)
+        q2_entry = ttk.Entry(dataFrame, width=9, textvariable=self.q2_str)
+        q3_entry = ttk.Entry(dataFrame, width=9, textvariable=self.q3_str)
+        q4_entry = ttk.Entry(dataFrame, width=9, textvariable=self.q4_str)
+        q1_entry.grid(column=4, row=1, sticky=(E, W))
+        q2_entry.grid(column=4, row=2, sticky=(E, W))
+        q3_entry.grid(column=4, row=3, sticky=(E, W))
+        q4_entry.grid(column=4, row=4, sticky=(E, W))
         ttk.Label(dataFrame, text="q1:").grid(column=3, row=1, sticky=W)
         ttk.Label(dataFrame, text="q2:").grid(column=3, row=2, sticky=W)
         ttk.Label(dataFrame, text="q3:").grid(column=3, row=3, sticky=W)
         ttk.Label(dataFrame, text="q4:").grid(column=3, row=4, sticky=W)
 
         #Initialize mass and center of gravity variables, entry boxes, and labels
-        self.massStr = StringVar()
-        self.cogXStr = StringVar()
-        self.cogYStr = StringVar()
-        self.cogZStr = StringVar()
-        massStrEntry = ttk.Entry(dataFrame, width=9, textvariable=self.massStr)
-        cogXStrEntry = ttk.Entry(dataFrame, width=9, textvariable=self.cogXStr)
-        cogYStrEntry = ttk.Entry(dataFrame, width=9, textvariable=self.cogYStr)
-        cogZStrEntry = ttk.Entry(dataFrame, width=9, textvariable=self.cogZStr)
-        massStrEntry.grid(column=6, row=1, sticky=(E, W))
-        cogXStrEntry.grid(column=6, row=2, sticky=(E, W))
-        cogYStrEntry.grid(column=6, row=3, sticky=(E, W))
-        cogZStrEntry.grid(column=6, row=4, sticky=(E, W))
+        self.mass_str = StringVar()
+        self.cog_x_str = StringVar()
+        self.cog_y_str = StringVar()
+        self.cog_z_str = StringVar()
+        mass_entry = ttk.Entry(dataFrame, width=9, textvariable=self.mass_str)
+        cog_x_entry = ttk.Entry(dataFrame, width=9, textvariable=self.cog_x_str)
+        cog_y_entry = ttk.Entry(dataFrame, width=9, textvariable=self.cog_y_str)
+        cog_z_entry = ttk.Entry(dataFrame, width=9, textvariable=self.cog_z_str)
+        mass_entry.grid(column=6, row=1, sticky=(E, W))
+        cog_x_entry.grid(column=6, row=2, sticky=(E, W))
+        cog_y_entry.grid(column=6, row=3, sticky=(E, W))
+        cog_z_entry.grid(column=6, row=4, sticky=(E, W))
         ttk.Label(dataFrame, text="Mass:").grid(column=5, row=1, sticky=W)
         ttk.Label(dataFrame, text="cogX:").grid(column=5, row=2, sticky=W)
         ttk.Label(dataFrame, text="cogY:").grid(column=5, row=3, sticky=W)
         ttk.Label(dataFrame, text="cogZ:").grid(column=5, row=4, sticky=W)
 
         #Initialize orientation quaternation variables, entry boxes, and labels
-        self.orientQ1Str = StringVar()
-        self.orientQ2Str = StringVar()
-        self.orientQ3Str = StringVar()
-        self.orientQ4Str = StringVar()
-        cogOrQ1Entry = ttk.Entry(dataFrame, width=9, textvariable=self.orientQ1Str)
-        cogOrQ2Entry = ttk.Entry(dataFrame, width=9, textvariable=self.orientQ2Str)
-        cogOrQ3Entry = ttk.Entry(dataFrame, width=9, textvariable=self.orientQ3Str)
-        cogOrQ4Entry = ttk.Entry(dataFrame, width=9, textvariable=self.orientQ4Str)
-        cogOrQ1Entry.grid(column=8, row=1, sticky=(W, E))
-        cogOrQ2Entry.grid(column=8, row=2, sticky=(W, E))
-        cogOrQ3Entry.grid(column=8, row=3, sticky=(W, E))
-        cogOrQ4Entry.grid(column=8, row=4, sticky=(W, E))
-        ttk.Label(dataFrame, text="cogOrient Q1:").grid(column=7, row=1, sticky=W)
-        ttk.Label(dataFrame, text="cogOrient Q2:").grid(column=7, row=2, sticky=W)
-        ttk.Label(dataFrame, text="cogOrient Q3:").grid(column=7, row=3, sticky=W)
-        ttk.Label(dataFrame, text="cogOrient Q4:").grid(column=7, row=4, sticky=W)
+        self.orient_q1_str = StringVar()
+        self.orient_q2_str = StringVar()
+        self.orient_q3_str = StringVar()
+        self.orient_q4_str = StringVar()
+        orient_q1_entry = ttk.Entry(dataFrame, width=9, textvariable=self.orient_q1_str)
+        orient_q2_entry = ttk.Entry(dataFrame, width=9, textvariable=self.orient_q2_str)
+        orient_q3_entry = ttk.Entry(dataFrame, width=9, textvariable=self.orient_q3_str)
+        orient_q4_entry = ttk.Entry(dataFrame, width=9, textvariable=self.orient_q4_str)
+        orient_q1_entry.grid(column=8, row=1, sticky=(W, E))
+        orient_q2_entry.grid(column=8, row=2, sticky=(W, E))
+        orient_q3_entry.grid(column=8, row=3, sticky=(W, E))
+        orient_q4_entry.grid(column=8, row=4, sticky=(W, E))
+        ttk.Label(dataFrame, text="Orient Q1:").grid(column=7, row=1, sticky=W)
+        ttk.Label(dataFrame, text="Orient Q2:").grid(column=7, row=2, sticky=W)
+        ttk.Label(dataFrame, text="Orient Q3:").grid(column=7, row=3, sticky=W)
+        ttk.Label(dataFrame, text="Orient Q4:").grid(column=7, row=4, sticky=W)
 
         #Initialize moment of inertia variables, entry boxes, and labels
         self.moiXStr = StringVar()
@@ -170,9 +170,9 @@ class GuiTcp:
                    command=self.calculate).grid(column=2, row=1, sticky=(S, W), rowspan=3)
 
         #Loop through all frames, bind enter to calculate, and set padding
-        for child in dataFrame.winfo_children(): 
+        for child in dataFrame.winfo_children():
             child.grid_configure(padx=5, pady=5)
-            xEntry.focus()
+            x_entry.focus()
             root.bind("<Return>", self.calculate)
         for child in displaceFrame.winfo_children():
             child.grid_configure(padx=5)
@@ -191,7 +191,7 @@ class GuiTcp:
                       float(self.dispZStr.get())]
         #Using the Tool class, create tool object from entered values
         calcTool = self.createTool()
-        if self.frameStr.get() == "tool": 
+        if self.frameStr.get() == "tool":
             calcTool.displace_tool(dispVector)
         else:
             calcTool.displace_world(dispVector)
@@ -223,17 +223,17 @@ class GuiTcp:
         """
         #Convert entered data into floating point numbers
         #ToDo: add error checking
-        pos = [float(self.xStr.get()), float(self.yStr.get()), float(self.zStr.get())]
-        quat = [float(self.q1Str.get()), float(self.q2Str.get()), float(self.q3Str.get()),
-                float(self.q4Str.get())]
-        cog = [float(self.massStr.get()), float(self.cogXStr.get()),
-               float(self.cogYStr.get()), float(self.cogZStr.get())]
-        orient = [float(self.orientQ1Str.get()), float(self.orientQ2Str.get()),
-                  float(self.orientQ3Str.get()), float(self.orientQ4Str.get())]
+        pos = [float(self.x_str.get()), float(self.y_str.get()), float(self.z_str.get())]
+        quat = [float(self.q1_str.get()), float(self.q2_str.get()), float(self.q3_str.get()),
+                float(self.q4_str.get())]
+        cog = [float(self.mass_str.get()), float(self.cog_x_str.get()),
+               float(self.cog_y_str.get()), float(self.cog_z_str.get())]
+        orient = [float(self.orient_q1_str.get()), float(self.orient_q2_str.get()),
+                  float(self.orient_q3_str.get()), float(self.orient_q4_str.get())]
         moi = [float(self.moiXStr.get()), float(self.moiYStr.get()), float(self.moiZStr.get())]
 
         #Return tool object
-        return  Tool(self.nameStr.get(), self.mountedStr.get(), pos, quat, cog, orient, moi)
+        return  Tool(self.name_str.get(), self.mountedStr.get(), pos, quat, cog, orient, moi)
 
 
     def rootSaveFile(self):
@@ -287,10 +287,10 @@ class GuiTcp:
         """Loads a tool from a file, parses tooldata, and fills in all the fields."""
         #Prompt user to select file
         filename = filedialog.askopenfilename()
-        #Create AbbToolParseobject from file 
+        #Create AbbToolParseobject from file
         toolData = AbbToolParse(filename)
         #Check if more than one tool was found
-        #ToDo create notice if no tools were wound
+        #ToDo: create notice if no tools were wound
         if len(toolData.dict_array) > 1:
             #If more than one tool was found,
             #create a new window for user to select one
@@ -318,7 +318,7 @@ class GuiTcp:
 
         else:
             #Else only one tool found
-            #Set all data fields from the dictionary 
+            #Set all data fields from the dictionary
             self.setData(toolData.dict_array[0])
 
     def setData(self, chosen):
@@ -328,23 +328,23 @@ class GuiTcp:
           chosen:
            Tool dictonary chosen to enter.
         """
-        self.nameStr.set(chosen["name"])
+        self.name_str.set(chosen["name"])
         self.mountedStr.set(chosen["mounted"])
-        self.xStr.set(chosen["x"])
-        self.yStr.set(chosen["y"])
-        self.zStr.set(chosen["z"])
-        self.q1Str.set(chosen["q1"])
-        self.q2Str.set(chosen["q2"])
-        self.q3Str.set(chosen["q3"])
-        self.q4Str.set(chosen["q4"])
-        self.massStr.set(chosen["mass"])
-        self.cogXStr.set(chosen["cogX"])
-        self.cogYStr.set(chosen["cogY"])
-        self.cogZStr.set(chosen["cogZ"])
-        self.orientQ1Str.set(chosen["orientQ1"])
-        self.orientQ2Str.set(chosen["orientQ2"])
-        self.orientQ3Str.set(chosen["orientQ3"])
-        self.orientQ4Str.set(chosen["orientQ4"])
+        self.x_str.set(chosen["x"])
+        self.y_str.set(chosen["y"])
+        self.z_str.set(chosen["z"])
+        self.q1_str.set(chosen["q1"])
+        self.q2_str.set(chosen["q2"])
+        self.q3_str.set(chosen["q3"])
+        self.q4_str.set(chosen["q4"])
+        self.mass_str.set(chosen["mass"])
+        self.cog_x_str.set(chosen["cogX"])
+        self.cog_y_str.set(chosen["cogY"])
+        self.cog_z_str.set(chosen["cogZ"])
+        self.orient_q1_str.set(chosen["orientQ1"])
+        self.orient_q2_str.set(chosen["orientQ2"])
+        self.orient_q3_str.set(chosen["orientQ3"])
+        self.orient_q4_str.set(chosen["orientQ4"])
         self.moiXStr.set(chosen["moiX"])
         self.moiYStr.set(chosen["moiY"])
         self.moiZStr.set(chosen["moiZ"])
