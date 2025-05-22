@@ -20,15 +20,15 @@ class GuiTcp:
         root.rowconfigure(0, weight=1)
 
         #Create inner frames
-        dataFrame = ttk.Frame(root, padding="3 3 12 12")
-        displaceFrame = ttk.Frame(root, padding="3 3 12 12")
-        radioFrame = ttk.Frame(root, padding="3 3 12 12")
-        buttonFrame = ttk.Frame(root, padding="3 3 12 12")
+        data_frame = ttk.Frame(root, padding="3 3 12 12")
+        displace_frame = ttk.Frame(root, padding="3 3 12 12")
+        radio_frame = ttk.Frame(root, padding="3 3 12 12")
+        button_frame = ttk.Frame(root, padding="3 3 12 12")
         #Grid inner frames
-        dataFrame.grid(column=0, row=0, sticky=(N, W, E, S), columnspan=2)
-        displaceFrame.grid(column=0, row=1, sticky=(N, W, E, S))
-        radioFrame.grid(column=0, row=2, sticky=(N, W, S))
-        buttonFrame.grid(column=1, row=1, sticky=(N, W, S), rowspan=2)
+        data_frame.grid(column=0, row=0, sticky=(N, W, E, S), columnspan=2)
+        displace_frame.grid(column=0, row=1, sticky=(N, W, E, S))
+        radio_frame.grid(column=0, row=2, sticky=(N, W, S))
+        button_frame.grid(column=1, row=1, sticky=(N, W, S), rowspan=2)
 
         #Data entry Frame
         #Initialize name and postion variables, entry boxes, and labels
@@ -36,150 +36,150 @@ class GuiTcp:
         self.x_str = StringVar()
         self.y_str = StringVar()
         self.z_str = StringVar()
-        nameEntry = ttk.Entry(dataFrame, width=9, textvariable=self.name_str)
-        x_entry = ttk.Entry(dataFrame, width=9, textvariable=self.x_str)
-        y_entry = ttk.Entry(dataFrame, width=9, textvariable=self.y_str)
-        z_entry = ttk.Entry(dataFrame, width=9, textvariable=self.z_str)
+        nameEntry = ttk.Entry(data_frame, width=9, textvariable=self.name_str)
+        x_entry = ttk.Entry(data_frame, width=9, textvariable=self.x_str)
+        y_entry = ttk.Entry(data_frame, width=9, textvariable=self.y_str)
+        z_entry = ttk.Entry(data_frame, width=9, textvariable=self.z_str)
         nameEntry.grid(column=2, row=1, sticky=(W, E))
         x_entry.grid(column=2, row=2, sticky=(W, E))
         y_entry.grid(column=2, row=3, sticky=(W, E))
         z_entry.grid(column=2, row=4, sticky=(W, E))
-        ttk.Label(dataFrame, text="Name:").grid(column=1, row=1, sticky=W)
-        ttk.Label(dataFrame, text="X:").grid(column=1, row=2, sticky=W)
-        ttk.Label(dataFrame, text="Y:").grid(column=1, row=3, sticky=W)
-        ttk.Label(dataFrame, text="Z:").grid(column=1, row=4, sticky=W)
+        ttk.Label(data_frame, text="Name:").grid(column=1, row=1, sticky=W)
+        ttk.Label(data_frame, text="X:").grid(column=1, row=2, sticky=W)
+        ttk.Label(data_frame, text="Y:").grid(column=1, row=3, sticky=W)
+        ttk.Label(data_frame, text="Z:").grid(column=1, row=4, sticky=W)
 
         #Initialize quaternation variables, entry boxes, and labels
         self.q1_str = StringVar()
         self.q2_str = StringVar()
         self.q3_str = StringVar()
         self.q4_str = StringVar()
-        q1_entry = ttk.Entry(dataFrame, width=9, textvariable=self.q1_str)
-        q2_entry = ttk.Entry(dataFrame, width=9, textvariable=self.q2_str)
-        q3_entry = ttk.Entry(dataFrame, width=9, textvariable=self.q3_str)
-        q4_entry = ttk.Entry(dataFrame, width=9, textvariable=self.q4_str)
+        q1_entry = ttk.Entry(data_frame, width=9, textvariable=self.q1_str)
+        q2_entry = ttk.Entry(data_frame, width=9, textvariable=self.q2_str)
+        q3_entry = ttk.Entry(data_frame, width=9, textvariable=self.q3_str)
+        q4_entry = ttk.Entry(data_frame, width=9, textvariable=self.q4_str)
         q1_entry.grid(column=4, row=1, sticky=(E, W))
         q2_entry.grid(column=4, row=2, sticky=(E, W))
         q3_entry.grid(column=4, row=3, sticky=(E, W))
         q4_entry.grid(column=4, row=4, sticky=(E, W))
-        ttk.Label(dataFrame, text="q1:").grid(column=3, row=1, sticky=W)
-        ttk.Label(dataFrame, text="q2:").grid(column=3, row=2, sticky=W)
-        ttk.Label(dataFrame, text="q3:").grid(column=3, row=3, sticky=W)
-        ttk.Label(dataFrame, text="q4:").grid(column=3, row=4, sticky=W)
+        ttk.Label(data_frame, text="q1:").grid(column=3, row=1, sticky=W)
+        ttk.Label(data_frame, text="q2:").grid(column=3, row=2, sticky=W)
+        ttk.Label(data_frame, text="q3:").grid(column=3, row=3, sticky=W)
+        ttk.Label(data_frame, text="q4:").grid(column=3, row=4, sticky=W)
 
         #Initialize mass and center of gravity variables, entry boxes, and labels
         self.mass_str = StringVar()
         self.cog_x_str = StringVar()
         self.cog_y_str = StringVar()
         self.cog_z_str = StringVar()
-        mass_entry = ttk.Entry(dataFrame, width=9, textvariable=self.mass_str)
-        cog_x_entry = ttk.Entry(dataFrame, width=9, textvariable=self.cog_x_str)
-        cog_y_entry = ttk.Entry(dataFrame, width=9, textvariable=self.cog_y_str)
-        cog_z_entry = ttk.Entry(dataFrame, width=9, textvariable=self.cog_z_str)
+        mass_entry = ttk.Entry(data_frame, width=9, textvariable=self.mass_str)
+        cog_x_entry = ttk.Entry(data_frame, width=9, textvariable=self.cog_x_str)
+        cog_y_entry = ttk.Entry(data_frame, width=9, textvariable=self.cog_y_str)
+        cog_z_entry = ttk.Entry(data_frame, width=9, textvariable=self.cog_z_str)
         mass_entry.grid(column=6, row=1, sticky=(E, W))
         cog_x_entry.grid(column=6, row=2, sticky=(E, W))
         cog_y_entry.grid(column=6, row=3, sticky=(E, W))
         cog_z_entry.grid(column=6, row=4, sticky=(E, W))
-        ttk.Label(dataFrame, text="Mass:").grid(column=5, row=1, sticky=W)
-        ttk.Label(dataFrame, text="cogX:").grid(column=5, row=2, sticky=W)
-        ttk.Label(dataFrame, text="cogY:").grid(column=5, row=3, sticky=W)
-        ttk.Label(dataFrame, text="cogZ:").grid(column=5, row=4, sticky=W)
+        ttk.Label(data_frame, text="Mass:").grid(column=5, row=1, sticky=W)
+        ttk.Label(data_frame, text="cog X:").grid(column=5, row=2, sticky=W)
+        ttk.Label(data_frame, text="cog Y:").grid(column=5, row=3, sticky=W)
+        ttk.Label(data_frame, text="cog Z:").grid(column=5, row=4, sticky=W)
 
         #Initialize orientation quaternation variables, entry boxes, and labels
         self.orient_q1_str = StringVar()
         self.orient_q2_str = StringVar()
         self.orient_q3_str = StringVar()
         self.orient_q4_str = StringVar()
-        orient_q1_entry = ttk.Entry(dataFrame, width=9, textvariable=self.orient_q1_str)
-        orient_q2_entry = ttk.Entry(dataFrame, width=9, textvariable=self.orient_q2_str)
-        orient_q3_entry = ttk.Entry(dataFrame, width=9, textvariable=self.orient_q3_str)
-        orient_q4_entry = ttk.Entry(dataFrame, width=9, textvariable=self.orient_q4_str)
+        orient_q1_entry = ttk.Entry(data_frame, width=9, textvariable=self.orient_q1_str)
+        orient_q2_entry = ttk.Entry(data_frame, width=9, textvariable=self.orient_q2_str)
+        orient_q3_entry = ttk.Entry(data_frame, width=9, textvariable=self.orient_q3_str)
+        orient_q4_entry = ttk.Entry(data_frame, width=9, textvariable=self.orient_q4_str)
         orient_q1_entry.grid(column=8, row=1, sticky=(W, E))
         orient_q2_entry.grid(column=8, row=2, sticky=(W, E))
         orient_q3_entry.grid(column=8, row=3, sticky=(W, E))
         orient_q4_entry.grid(column=8, row=4, sticky=(W, E))
-        ttk.Label(dataFrame, text="Orient Q1:").grid(column=7, row=1, sticky=W)
-        ttk.Label(dataFrame, text="Orient Q2:").grid(column=7, row=2, sticky=W)
-        ttk.Label(dataFrame, text="Orient Q3:").grid(column=7, row=3, sticky=W)
-        ttk.Label(dataFrame, text="Orient Q4:").grid(column=7, row=4, sticky=W)
+        ttk.Label(data_frame, text="Orient Q1:").grid(column=7, row=1, sticky=W)
+        ttk.Label(data_frame, text="Orient Q2:").grid(column=7, row=2, sticky=W)
+        ttk.Label(data_frame, text="Orient Q3:").grid(column=7, row=3, sticky=W)
+        ttk.Label(data_frame, text="Orient Q4:").grid(column=7, row=4, sticky=W)
 
         #Initialize moment of inertia variables, entry boxes, and labels
-        self.moiXStr = StringVar()
-        self.moiYStr = StringVar()
-        self.moiZStr = StringVar()
-        moiXEntry = ttk.Entry(dataFrame, width=9, textvariable=self.moiXStr)
-        moiYEntry = ttk.Entry(dataFrame, width=9, textvariable=self.moiYStr)
-        moiZEntry = ttk.Entry(dataFrame, width=9, textvariable=self.moiZStr)
-        moiXEntry.grid(column=10,row=1, sticky=(W, E))
-        moiYEntry.grid(column=10,row=2, sticky=(W, E))
-        moiZEntry.grid(column=10,row=3, sticky=(W, E))
-        ttk.Label(dataFrame, text="moiX:").grid(column=9, row=1, sticky=W)
-        ttk.Label(dataFrame, text="moiY:").grid(column=9, row=2, sticky=W)
-        ttk.Label(dataFrame, text="moiZ:").grid(column=9, row=3, sticky=W)
+        self.moi_x_str = StringVar()
+        self.moi_y_str = StringVar()
+        self.moi_z_str = StringVar()
+        moi_x_entry = ttk.Entry(data_frame, width=9, textvariable=self.moi_x_str)
+        moi_y_entry = ttk.Entry(data_frame, width=9, textvariable=self.moi_y_str)
+        moi_z_entry = ttk.Entry(data_frame, width=9, textvariable=self.moi_z_str)
+        moi_x_entry.grid(column=10,row=1, sticky=(W, E))
+        moi_y_entry.grid(column=10,row=2, sticky=(W, E))
+        moi_z_entry.grid(column=10,row=3, sticky=(W, E))
+        ttk.Label(data_frame, text="moi X:").grid(column=9, row=1, sticky=W)
+        ttk.Label(data_frame, text="moi Y:").grid(column=9, row=2, sticky=W)
+        ttk.Label(data_frame, text="moi Z:").grid(column=9, row=3, sticky=W)
 
         #Displacement value entry frame
         #Initialize displacement variables, entry boxes, and labels
-        self.dispXStr = StringVar(value="0")
-        self.dispYStr = StringVar(value="0")
-        self.dispZStr = StringVar(value="0")
-        dispXEntry = ttk.Entry(displaceFrame, width=9, textvariable=self.dispXStr)
-        dispYEntry = ttk.Entry(displaceFrame, width=9, textvariable=self.dispYStr)
-        dispZEntry = ttk.Entry(displaceFrame, width=9, textvariable=self.dispZStr)
-        dispXEntry.grid(column=2, row=2, sticky=(W, E))
-        dispYEntry.grid(column=4, row=2, sticky=(W, E))
-        dispZEntry.grid(column=6, row=2, sticky=(W, E))
-        ttk.Label(displaceFrame, text="Displacement Values:",
+        self.disp_x_str = StringVar(value="0")
+        self.disp_y_str = StringVar(value="0")
+        self.disp_z_str = StringVar(value="0")
+        disp_x_entry = ttk.Entry(displace_frame, width=9, textvariable=self.disp_x_str)
+        disp_y_entry = ttk.Entry(displace_frame, width=9, textvariable=self.disp_y_str)
+        disp_z_entry = ttk.Entry(displace_frame, width=9, textvariable=self.disp_z_str)
+        disp_x_entry.grid(column=2, row=2, sticky=(W, E))
+        disp_y_entry.grid(column=4, row=2, sticky=(W, E))
+        disp_z_entry.grid(column=6, row=2, sticky=(W, E))
+        ttk.Label(displace_frame, text="Displacement Values:",
                   font=("Helvetica", 12, "bold")).grid(column=1, row=1, columnspan=4, sticky=W)
-        ttk.Label(displaceFrame, text="X:").grid(column=1, row=2, sticky=W)
-        ttk.Label(displaceFrame, text="Y:").grid(column=3, row=2, sticky=W)
-        ttk.Label(displaceFrame, text="Z:").grid(column=5, row=2, sticky=W)
+        ttk.Label(displace_frame, text="X:").grid(column=1, row=2, sticky=W)
+        ttk.Label(displace_frame, text="Y:").grid(column=3, row=2, sticky=W)
+        ttk.Label(displace_frame, text="Z:").grid(column=5, row=2, sticky=W)
 
         #Radio button frame
         #Is tool mounted to the robot TRUE/FALSE
-        self.mountedStr = StringVar()
-        radT = ttk.Radiobutton(radioFrame, text="TRUE",
-                               variable=self.mountedStr, value="TRUE")
-        radF = ttk.Radiobutton(radioFrame, text="FALSE",
-                               variable=self.mountedStr, value="FALSE")
-        ttk.Label(radioFrame, text="Is tool mounted:",
+        self.mounted_str = StringVar()
+        rad_true = ttk.Radiobutton(radio_frame, text="TRUE",
+                               variable=self.mounted_str, value="TRUE")
+        rad_false = ttk.Radiobutton(radio_frame, text="FALSE",
+                               variable=self.mounted_str, value="FALSE")
+        ttk.Label(radio_frame, text="Is tool mounted:",
                   font=("Helvetica", 8, "bold")).grid(column=1, row=1, sticky=W)
-        radT.grid(column=2, row=1, sticky=W)
-        radF.grid(column=2, row=2, sticky=W)
-        self.mountedStr.set("TRUE")
+        rad_true.grid(column=2, row=1, sticky=W)
+        rad_false.grid(column=2, row=2, sticky=W)
+        self.mounted_str.set("TRUE")
 
         #Operating on Tool frame, or World frame
-        self.frameStr = StringVar()
-        radTool = ttk.Radiobutton(radioFrame, text="Tool",
-                                  variable=self.frameStr, value="tool")
-        radWorld = ttk.Radiobutton(radioFrame, text="World",
-                                   variable=self.frameStr, value="world")
-        ttk.Label(radioFrame, text="Select frame:",
+        self.frame_str = StringVar()
+        rad_tool = ttk.Radiobutton(radio_frame, text="Tool",
+                                  variable=self.frame_str, value="tool")
+        rad_world = ttk.Radiobutton(radio_frame, text="World",
+                                   variable=self.frame_str, value="world")
+        ttk.Label(radio_frame, text="Select frame:",
                   font=("Helvetica", 8, "bold")).grid(column=3, row=1, sticky=W)
-        radTool.grid(column=4, row=1, sticky=W)
-        radWorld.grid(column=4, row=2, sticky=W)
-        self.frameStr.set("tool")
+        rad_tool.grid(column=4, row=1, sticky=W)
+        rad_world.grid(column=4, row=2, sticky=W)
+        self.frame_str.set("tool")
 
         #Button frame
-        ttk.Button(buttonFrame, text="Load tool from file",
+        ttk.Button(button_frame, text="Load tool from file",
                    command=self.loadTool).grid(column=1, row=1, sticky=(S, W))
-        ttk.Button(buttonFrame, text="Save to file",
+        ttk.Button(button_frame, text="Save to file",
                    command=self.rootSaveFile).grid(column=1, row=2, sticky=(S, W))
-        ttk.Button(buttonFrame, text="Save to new file",
+        ttk.Button(button_frame, text="Save to new file",
                    command=self.rootSaveAsFile).grid(column=1, row=3, sticky=(S, W))
-        ttk.Button(buttonFrame, text="Calculate",
+        ttk.Button(button_frame, text="Calculate",
                    command=self.calculate).grid(column=2, row=1, sticky=(S, W), rowspan=3)
 
         #Loop through all frames, bind enter to calculate, and set padding
-        for child in dataFrame.winfo_children():
+        for child in data_frame.winfo_children():
             child.grid_configure(padx=5, pady=5)
             x_entry.focus()
             root.bind("<Return>", self.calculate)
-        for child in displaceFrame.winfo_children():
+        for child in displace_frame.winfo_children():
             child.grid_configure(padx=5)
             root.bind("<Return>", self.calculate)
-        for child in radioFrame.winfo_children():
+        for child in radio_frame.winfo_children():
             root.bind("<Return>", self.calculate)
-        for child in buttonFrame.winfo_children():
+        for child in button_frame.winfo_children():
             child.grid_configure(padx=3, pady=5)
             root.bind("<Return>", self.calculate)
 
@@ -187,29 +187,29 @@ class GuiTcp:
         """Creates a top level window and presents the results of calculation."""
         #Get displacement values as string.
         #Convert them to floating point numbers, and create array
-        dispVector = [float(self.dispXStr.get()), float(self.dispYStr.get()),
-                      float(self.dispZStr.get())]
+        disp_vector = [float(self.disp_x_str.get()), float(self.disp_y_str.get()),
+                      float(self.disp_z_str.get())]
         #Using the Tool class, create tool object from entered values
-        calcTool = self.createTool()
-        if self.frameStr.get() == "tool":
-            calcTool.displace_tool(dispVector)
+        calc_tool = self.createTool()
+        if self.frame_str.get() == "tool":
+            calc_tool.displace_tool(disp_vector)
         else:
-            calcTool.displace_world(dispVector)
+            calc_tool.displace_world(disp_vector)
 
         #Display results in a popup window
         results = Toplevel()
         results.title("Results")
-        ttk.Label(results, text=calcTool,
+        ttk.Label(results, text=calc_tool,
                   font=("Helvetica", 10, "bold")).grid(column=1, row=1, sticky=W,
                                                       columnspan=4, padx=5, pady=5)
         ttk.Button(results, text="Copy to clipboard",
-                   command=lambda: self.toClip(results,calcTool)).grid(column=1, row=2,
+                   command=lambda: self.toClip(results,calc_tool)).grid(column=1, row=2,
                                                                        sticky=W, padx=5, pady=5)
         ttk.Button(results, text="Save to File",
-                   command=lambda: self.saveFile(calcTool)).grid(column=2, row=2,
+                   command=lambda: self.saveFile(calc_tool)).grid(column=2, row=2,
                                                               sticky=W, padx=5, pady=5)
         ttk.Button(results, text="Save to new File",
-                   command=lambda: self.saveAsFile(calcTool)).grid(column=3, row=2,
+                   command=lambda: self.saveAsFile(calc_tool)).grid(column=3, row=2,
                                                               sticky=W, padx=5, pady=5)
         ttk.Button(results, text="Close",
                    command=results.destroy).grid(column=4, row=2,
@@ -230,10 +230,10 @@ class GuiTcp:
                float(self.cog_y_str.get()), float(self.cog_z_str.get())]
         orient = [float(self.orient_q1_str.get()), float(self.orient_q2_str.get()),
                   float(self.orient_q3_str.get()), float(self.orient_q4_str.get())]
-        moi = [float(self.moiXStr.get()), float(self.moiYStr.get()), float(self.moiZStr.get())]
+        moi = [float(self.moi_x_str.get()), float(self.moi_y_str.get()), float(self.moi_z_str.get())]
 
         #Return tool object
-        return  Tool(self.name_str.get(), self.mountedStr.get(), pos, quat, cog, orient, moi)
+        return  Tool(self.name_str.get(), self.mounted_str.get(), pos, quat, cog, orient, moi)
 
 
     def rootSaveFile(self):
@@ -251,11 +251,11 @@ class GuiTcp:
           tool:
             Tool object to save.
         """
-        saveFilename = filedialog.askopenfilename()
-        with open(saveFilename, "a") as f:
+        save_filename = filedialog.askopenfilename()
+        with open(save_filename, "a", encoding="utf-8") as f:
             f.write(str(tool) + "\n")
         #Generate popup on success
-        messagebox.showinfo("Tool Saved", tool.name + " saved to " + saveFilename)
+        messagebox.showinfo("Tool Saved", tool.name + " saved to " + save_filename)
 
     def saveAsFile(self, tool):
         """Creates a file dialog to append tool to a new file.
@@ -264,11 +264,11 @@ class GuiTcp:
           tool:
             Tool object to save.
         """
-        saveFilename = filedialog.asksaveasfilename()
-        with open(saveFilename, "a") as f:
+        save_filename = filedialog.asksaveasfilename()
+        with open(save_filename, "a", encoding="utf-8") as f:
             f.write(str(tool) + "\n")
         #Generates popup on success
-        messagebox.showinfo("Tool Saved", tool.name + " saved to " + saveFilename)
+        messagebox.showinfo("Tool Saved", tool.name + " saved to " + save_filename)
 
     def toClip(self, window, data):
         """Copies data to clipboard
@@ -288,28 +288,28 @@ class GuiTcp:
         #Prompt user to select file
         filename = filedialog.askopenfilename()
         #Create AbbToolParseobject from file
-        toolData = AbbToolParse(filename)
+        tool_data = AbbToolParse(filename)
         #Check if more than one tool was found
         #ToDo: create notice if no tools were wound
-        if len(toolData.dict_array) > 1:
+        if len(tool_data.dict_array) > 1:
             #If more than one tool was found,
             #create a new window for user to select one
-            selectTool = Toplevel()
-            selectTool.title("Select tool to modify")
+            select_tool = Toplevel()
+            select_tool.title("Select tool to modify")
             #Create an array of the name of each tool found
             choices = []
-            for item in toolData.dict_array:
+            for item in tool_data.dict_array:
                 choices.append(item["name"])
             #Configure listbox from choices
-            choicesVar = StringVar(value=choices)
+            choices_var = StringVar(value=choices)
             #Okay button passes window and chosen tool dictionary
             #to okayPress() method
-            okay = ttk.Button(selectTool, text="Okay")
-            okay.configure(command=lambda:self.okayPress(selectTool,
-                                                         toolData.dict_array[lbox.curselection()[0]]))
+            okay = ttk.Button(select_tool, text="Okay")
+            okay.configure(command=lambda:self.okayPress(select_tool,
+                                                         tool_data.dict_array[lbox.curselection()[0]]))
             #Grid okay button, and listbox
             okay.grid(column=2, row=1, sticky=(S, E))
-            lbox = Listbox(selectTool, listvariable=choicesVar)
+            lbox = Listbox(select_tool, listvariable=choices_var)
             lbox.grid(column=1, row=1, sticky=(N, S, W))
             lbox.activate(0)
             lbox.selection_set(0)
@@ -319,7 +319,7 @@ class GuiTcp:
         else:
             #Else only one tool found
             #Set all data fields from the dictionary
-            self.setData(toolData.dict_array[0])
+            self.setData(tool_data.dict_array[0])
 
     def setData(self, chosen):
         """Sets all entry boxes from a tool dictionary.
@@ -329,7 +329,7 @@ class GuiTcp:
            Tool dictonary chosen to enter.
         """
         self.name_str.set(chosen["name"])
-        self.mountedStr.set(chosen["mounted"])
+        self.mounted_str.set(chosen["mounted"])
         self.x_str.set(chosen["x"])
         self.y_str.set(chosen["y"])
         self.z_str.set(chosen["z"])
@@ -345,9 +345,9 @@ class GuiTcp:
         self.orient_q2_str.set(chosen["orientQ2"])
         self.orient_q3_str.set(chosen["orientQ3"])
         self.orient_q4_str.set(chosen["orientQ4"])
-        self.moiXStr.set(chosen["moiX"])
-        self.moiYStr.set(chosen["moiY"])
-        self.moiZStr.set(chosen["moiZ"])
+        self.moi_x_str.set(chosen["moiX"])
+        self.moi_y_str.set(chosen["moiY"])
+        self.moi_z_str.set(chosen["moiZ"])
 
     def okayPress(self, st, chosen):
         """method to handle okay button from listbox.
