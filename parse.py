@@ -45,7 +45,7 @@ class AbbToolParse:
         tl = []
         for line in line_array:
             if line.strip().startswith("PERS tooldata") and line.strip().endswith(";"):
-               tl.append(line)
+                tl.append(line)
         return tl
 
     def split_tool(self, raw_tools):
