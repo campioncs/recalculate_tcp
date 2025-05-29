@@ -10,14 +10,11 @@ class AbbToolParse:
         """
         self.f = f
         #Array of all lines in file f
-        self.line_array = []
-        self.to_array(self.f)
+        self.line_array = self.to_array(self.f)
         #Array of lines containing tool data
-        self.tool_lines = []
-        self.locate_tool(self.line_array)
+        self.tool_lines = self.locate_tool(self.line_array)
         #Array of dictionaries one dictionary for each tool
-        self.dict_array = []
-        self.split_tool(self.tool_lines)
+        self.dict_array = self.split_tool(self.tool_lines)
 
     def to_array(self, f_path):
         """Opens file f_path and creates an array of lines.
@@ -25,10 +22,15 @@ class AbbToolParse:
         Args:
           f_path:
             File path to open.
+
+        Returns:
+          Array of every line in file f.
         """
+        la = []
         with open(f_path, encoding="utf-8") as f:
             for line in f:
-                self.line_array.append(line)
+                la.append(line)
+        return la
 
     def locate_tool(self, line_array):
         """Locates tooldata lines from array.
@@ -36,10 +38,15 @@ class AbbToolParse:
         Args:
           line_array:
             Array of lines to locate tooldata from.
+
+        Returns:
+          Array of all line from line_array that contains tooldata.
         """
+        tl = []
         for line in line_array:
             if line.strip().startswith("PERS tooldata") and line.strip().endswith(";"):
-                self.tool_lines.append(line)
+               tl.append(line)
+        return tl
 
     def split_tool(self, raw_tools):
         """Takes an array of lines with tooldata and splits them into a dictionary.
@@ -47,7 +54,11 @@ class AbbToolParse:
         Args:
           raw_tools:
             array of tooldata lines
+
+        Returns:
+          Array of dictionaries containing tooldata by name.
         """
+        ta = []
         for item in raw_tools:
             tool_dict = {}
             space_split = item.split()
@@ -74,4 +85,5 @@ class AbbToolParse:
             tool_dict["moiY"] = comma_split[17]
             tool_dict["moiZ"] = comma_split[18].strip("]];")
             #Append dictionary to self.dict_array
-            self.dict_array.append(tool_dict)
+            ta.append(tool_dict)
+        return ta

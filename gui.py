@@ -1,6 +1,6 @@
 """gui module builds the grphical interface for recalculate_tcp."""
-#from tkinter import *
-from tkinter import filedialog, messagebox, ttk, Listbox, StringVar, Toplevel, N, S, E, W
+from tkinter import (filedialog, messagebox, ttk, Listbox,
+                     StringVar, Toplevel, N, S, E, W)
 from tool import Tool
 from parse import AbbToolParse
 
