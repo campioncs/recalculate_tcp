@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module parse</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">parse</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Ccaleb%5Conedrive%20-%20king%20automation%5Cdesktop%5Cvolvodocs%5Crecalculate_tcp%5Cparse.py">c:\users\caleb\onedrive - king automation\desktop\volvodocs\recalculate_tcp\parse.py</a></td></tr></table>
+    <p><span class="code">Parse&nbsp;module&nbsp;contains&nbsp;classes&nbsp;for&nbsp;parsing&nbsp;tool&nbsp;data.</span></p>
+<p>
+<table class="section">
+<tr class="decor index-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td></tr>
+    
+<tr><td class="decor index-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl>
+<dt class="heading-text"><a href="builtins.html#object">builtins.object</a>
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="parse.html#AbbToolParse">AbbToolParse</a>
+</dt></dl>
+</dd>
+</dl>
+ <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="AbbToolParse">class <strong>AbbToolParse</strong></a>(<a href="builtins.html#object">builtins.object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#AbbToolParse">AbbToolParse</a>(f)<br>
+&nbsp;<br>
+Class&nbsp;to&nbsp;parse&nbsp;tooldata&nbsp;from&nbsp;an&nbsp;abb&nbsp;config&nbsp;file<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Methods defined here:<br>
+<dl><dt><a name="AbbToolParse-__init__"><strong>__init__</strong></a>(self, f)</dt><dd><span class="code">Initilizes&nbsp;a&nbsp;ToolParse&nbsp;<a href="builtins.html#object">object</a>.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;f:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;File&nbsp;path&nbsp;to&nbsp;parse.</span></dd></dl>
+
+<dl><dt><a name="AbbToolParse-locate_tool"><strong>locate_tool</strong></a>(self, line_array)</dt><dd><span class="code">Locates&nbsp;tooldata&nbsp;lines&nbsp;from&nbsp;array.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;line_array:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Array&nbsp;of&nbsp;lines&nbsp;to&nbsp;locate&nbsp;tooldata&nbsp;from.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;Array&nbsp;of&nbsp;all&nbsp;line&nbsp;from&nbsp;line_array&nbsp;that&nbsp;contains&nbsp;tooldata.</span></dd></dl>
+
+<dl><dt><a name="AbbToolParse-split_tool"><strong>split_tool</strong></a>(self, raw_tools)</dt><dd><span class="code">Takes&nbsp;an&nbsp;array&nbsp;of&nbsp;lines&nbsp;with&nbsp;tooldata&nbsp;and&nbsp;splits&nbsp;them&nbsp;into&nbsp;a&nbsp;dictionary.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;raw_tools:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;array&nbsp;of&nbsp;tooldata&nbsp;lines<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;Array&nbsp;of&nbsp;dictionaries&nbsp;containing&nbsp;tooldata&nbsp;by&nbsp;name.</span></dd></dl>
+
+<dl><dt><a name="AbbToolParse-to_array"><strong>to_array</strong></a>(self, f_path)</dt><dd><span class="code">Opens&nbsp;file&nbsp;f_path&nbsp;and&nbsp;creates&nbsp;an&nbsp;array&nbsp;of&nbsp;lines.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;f_path:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;File&nbsp;path&nbsp;to&nbsp;open.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;Array&nbsp;of&nbsp;every&nbsp;line&nbsp;in&nbsp;file&nbsp;f.</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span></dd>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>

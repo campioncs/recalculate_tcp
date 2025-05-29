@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module gui</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">gui</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Ccaleb%5Conedrive%20-%20king%20automation%5Cdesktop%5Cvolvodocs%5Crecalculate_tcp%5Cgui.py">c:\users\caleb\onedrive - king automation\desktop\volvodocs\recalculate_tcp\gui.py</a></td></tr></table>
+    <p><span class="code">gui&nbsp;module&nbsp;builds&nbsp;the&nbsp;grphical&nbsp;interface&nbsp;for&nbsp;recalculate_tcp.</span></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="tkinter.filedialog.html">tkinter.filedialog</a><br>
+</td><td class="multicolumn"><a href="tkinter.messagebox.html">tkinter.messagebox</a><br>
+</td><td class="multicolumn"><a href="tkinter.ttk.html">tkinter.ttk</a><br>
+</td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor index-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td></tr>
+    
+<tr><td class="decor index-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl>
+<dt class="heading-text"><a href="builtins.html#object">builtins.object</a>
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="gui.html#GuiTcp">GuiTcp</a>
+</dt></dl>
+</dd>
+</dl>
+ <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="GuiTcp">class <strong>GuiTcp</strong></a>(<a href="builtins.html#object">builtins.object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#GuiTcp">GuiTcp</a>(root)<br>
+&nbsp;<br>
+gui&nbsp;module&nbsp;builds&nbsp;the&nbsp;grphical&nbsp;interface&nbsp;for&nbsp;recalculate_tcp.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Methods defined here:<br>
+<dl><dt><a name="GuiTcp-__init__"><strong>__init__</strong></a>(self, root)</dt><dd><span class="code">Initilizes&nbsp;root&nbsp;window&nbsp;and&nbsp;locates&nbsp;all&nbsp;graphical&nbsp;objects.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;root:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Root&nbsp;TK&nbsp;window&nbsp;to&nbsp;add&nbsp;objects&nbsp;too.</span></dd></dl>
+
+<dl><dt><a name="GuiTcp-calculate"><strong>calculate</strong></a>(self, event=None)</dt><dd><span class="code">Creates&nbsp;a&nbsp;top&nbsp;level&nbsp;window&nbsp;and&nbsp;presents&nbsp;the&nbsp;results&nbsp;of&nbsp;calculation.</span></dd></dl>
+
+<dl><dt><a name="GuiTcp-create_tool"><strong>create_tool</strong></a>(self)</dt><dd><span class="code">Creates&nbsp;a&nbsp;tool&nbsp;<a href="builtins.html#object">object</a>&nbsp;from&nbsp;entered&nbsp;data.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;Tool&nbsp;<a href="builtins.html#object">object</a>.</span></dd></dl>
+
+<dl><dt><a name="GuiTcp-load_tool"><strong>load_tool</strong></a>(self)</dt><dd><span class="code">Loads&nbsp;a&nbsp;tool&nbsp;from&nbsp;a&nbsp;file,&nbsp;parses&nbsp;tooldata,&nbsp;and&nbsp;fills&nbsp;in&nbsp;all&nbsp;the&nbsp;fields.</span></dd></dl>
+
+<dl><dt><a name="GuiTcp-okay_press"><strong>okay_press</strong></a>(self, st, chosen)</dt><dd><span class="code">method&nbsp;to&nbsp;handle&nbsp;okay&nbsp;button&nbsp;from&nbsp;listbox.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;st:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;parent&nbsp;window&nbsp;frame.<br>
+&nbsp;&nbsp;chosen:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tool&nbsp;dictionary&nbsp;chosen&nbsp;from&nbsp;listbox.</span></dd></dl>
+
+<dl><dt><a name="GuiTcp-root_save_as_file"><strong>root_save_as_file</strong></a>(self)</dt><dd><span class="code">Save&nbsp;new&nbsp;file&nbsp;button&nbsp;for&nbsp;root&nbsp;window&nbsp;when&nbsp;tool&nbsp;<a href="builtins.html#object">object</a>&nbsp;needs&nbsp;to&nbsp;be&nbsp;crated.</span></dd></dl>
+
+<dl><dt><a name="GuiTcp-root_save_file"><strong>root_save_file</strong></a>(self)</dt><dd><span class="code">Save&nbsp;file&nbsp;button&nbsp;for&nbsp;root&nbsp;window&nbsp;when&nbsp;tool&nbsp;<a href="builtins.html#object">object</a>&nbsp;needs&nbsp;to&nbsp;be&nbsp;crated.</span></dd></dl>
+
+<dl><dt><a name="GuiTcp-save_as_file"><strong>save_as_file</strong></a>(self, tool)</dt><dd><span class="code">Creates&nbsp;a&nbsp;file&nbsp;dialog&nbsp;to&nbsp;append&nbsp;tool&nbsp;to&nbsp;a&nbsp;new&nbsp;file.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;tool:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Tool&nbsp;<a href="builtins.html#object">object</a>&nbsp;to&nbsp;save.</span></dd></dl>
+
+<dl><dt><a name="GuiTcp-save_file"><strong>save_file</strong></a>(self, tool)</dt><dd><span class="code">creates&nbsp;a&nbsp;file&nbsp;dialog&nbsp;to&nbsp;append&nbsp;tool&nbsp;to&nbsp;existing&nbsp;file.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;tool:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Tool&nbsp;<a href="builtins.html#object">object</a>&nbsp;to&nbsp;save.</span></dd></dl>
+
+<dl><dt><a name="GuiTcp-set_data"><strong>set_data</strong></a>(self, chosen)</dt><dd><span class="code">Sets&nbsp;all&nbsp;entry&nbsp;boxes&nbsp;from&nbsp;a&nbsp;tool&nbsp;dictionary.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;chosen:<br>
+&nbsp;&nbsp;&nbsp;Tool&nbsp;dictonary&nbsp;chosen&nbsp;to&nbsp;enter.</span></dd></dl>
+
+<dl><dt><a name="GuiTcp-to_clip"><strong>to_clip</strong></a>(self, window, data)</dt><dd><span class="code">Copies&nbsp;data&nbsp;to&nbsp;clipboard<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;window:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;TK&nbsp;frame<br>
+&nbsp;&nbsp;data:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Sting&nbsp;to&nbsp;be&nbsp;copied&nbsp;to&nbsp;clipboard</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor data-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Data</strong></td></tr>
+    
+<tr><td class="decor data-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><strong>E</strong> = 'e'<br>
+<strong>N</strong> = 'n'<br>
+<strong>S</strong> = 's'<br>
+<strong>W</strong> = 'w'</td></tr></table>
+</body></html>
