@@ -27,7 +27,7 @@ class AbbToolParse:
           Array of every line in file f.
         """
         la = []
-        with open(f_path, encoding="utf-8") as f:
+        with open(f_path, encoding="latin-1") as f:
             for line in f:
                 la.append(line)
         return la

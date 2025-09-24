@@ -3,6 +3,7 @@ from tkinter import (filedialog, messagebox, ttk, Listbox,
                      StringVar, Toplevel, N, S, E, W)
 from tool import Tool
 from parse import AbbToolParse
+import pdb
 
 class GuiTcp:
     """gui module builds the grphical interface for recalculate_tcp."""
@@ -185,33 +186,40 @@ class GuiTcp:
         """Creates a top level window and presents the results of calculation."""
         #Get displacement values as string.
         #Convert them to floating point numbers, and create array
-        disp_vector = [float(self.disp_x_str.get()), float(self.disp_y_str.get()),
-                      float(self.disp_z_str.get())]
+        try:
+            disp_vector = [float(self.disp_x_str.get()), float(self.disp_y_str.get()),
+                           float(self.disp_z_str.get())]
+        except ValueError:
+            messagebox.showinfo("Bad Input",
+                                "Bad Input: Check that x,y,z displacement values are not empty and valid numbers.")
+            return
         #Using the Tool class, create tool object from entered values
+        #breakpoint()
         calc_tool = self.create_tool()
-        if self.frame_str.get() == "tool":
-            calc_tool.displace_tool(disp_vector)
-        else:
-            calc_tool.displace_world(disp_vector)
+        if calc_tool is not None:
+            if self.frame_str.get() == "tool":
+                calc_tool.displace_tool(disp_vector)
+            else:
+                calc_tool.displace_world(disp_vector)
 
-        #Display results in a popup window
-        results = Toplevel()
-        results.title("Results")
-        ttk.Label(results, text=calc_tool,
-                  font=("Helvetica", 10, "bold")).grid(column=1, row=1, sticky=W,
-                                                      columnspan=4, padx=5, pady=5)
-        ttk.Button(results, text="Copy to clipboard",
-                   command=lambda: self.to_clip(results,calc_tool)).grid(column=1, row=2,
-                                                                       sticky=W, padx=5, pady=5)
-        ttk.Button(results, text="Save to File",
-                   command=lambda: self.save_file(calc_tool)).grid(column=2, row=2,
-                                                              sticky=W, padx=5, pady=5)
-        ttk.Button(results, text="Save to new File",
-                   command=lambda: self.save_as_file(calc_tool)).grid(column=3, row=2,
-                                                              sticky=W, padx=5, pady=5)
-        ttk.Button(results, text="Close",
-                   command=results.destroy).grid(column=4, row=2,
-                                                 sticky=W, padx=5, pady=5)
+            #Display results in a popup window
+            results = Toplevel()
+            results.title("Results")
+            ttk.Label(results, text=calc_tool,
+                      font=("Helvetica", 10, "bold")).grid(column=1, row=1, sticky=W,
+                                                        columnspan=4, padx=5, pady=5)
+            ttk.Button(results, text="Copy to clipboard",
+                       command=lambda: self.to_clip(results,calc_tool)).grid(column=1, row=2,
+                                                        sticky=W, padx=5, pady=5)
+            ttk.Button(results, text="Save to File",
+                       command=lambda: self.save_file(calc_tool)).grid(column=2, row=2,
+                                                        sticky=W, padx=5, pady=5)
+            ttk.Button(results, text="Save to new File",
+                       command=lambda: self.save_as_file(calc_tool)).grid(column=3, row=2,
+                                                        sticky=W, padx=5, pady=5)
+            ttk.Button(results, text="Close",
+                       command=results.destroy).grid(column=4, row=2,
+                                                     sticky=W, padx=5, pady=5)
 
     def create_tool(self):
         """Creates a tool object from entered data.
@@ -220,20 +228,23 @@ class GuiTcp:
           Tool object.
         """
         #Convert entered data into floating point numbers
-        #ToDo: add error checking
-        pos = [float(self.x_str.get()), float(self.y_str.get()), float(self.z_str.get())]
-        quat = [float(self.q1_str.get()), float(self.q2_str.get()), float(self.q3_str.get()),
-                float(self.q4_str.get())]
-        cog = [float(self.mass_str.get()), float(self.cog_x_str.get()),
-               float(self.cog_y_str.get()), float(self.cog_z_str.get())]
-        orient = [float(self.orient_q1_str.get()), float(self.orient_q2_str.get()),
-                  float(self.orient_q3_str.get()), float(self.orient_q4_str.get())]
-        moi = [float(self.moi_x_str.get()), float(self.moi_y_str.get()),
-               float(self.moi_z_str.get())]
+        try:
+            pos = [float(self.x_str.get()), float(self.y_str.get()), float(self.z_str.get())]
+            quat = [float(self.q1_str.get()), float(self.q2_str.get()), float(self.q3_str.get()),
+                    float(self.q4_str.get())]
+            cog = [float(self.mass_str.get()), float(self.cog_x_str.get()),
+                   float(self.cog_y_str.get()), float(self.cog_z_str.get())]
+            orient = [float(self.orient_q1_str.get()), float(self.orient_q2_str.get()),
+                      float(self.orient_q3_str.get()), float(self.orient_q4_str.get())]
+            moi = [float(self.moi_x_str.get()), float(self.moi_y_str.get()),
+                   float(self.moi_z_str.get())]
 
-        #Return tool object
-        return  Tool(self.name_str.get(), self.mounted_str.get(), pos, quat, cog, orient, moi)
-
+            #Return tool object
+            return  Tool(self.name_str.get(), self.mounted_str.get(), pos, quat, cog, orient, moi)
+        except ValueError:
+            messagebox.showinfo("Bad Input",
+                            "Bad Input: Please confirm all inputs are valid numbers, and not empty")
+            return None
 
     def root_save_file(self):
         """Save file button for root window when tool object needs to be crated."""
@@ -289,7 +300,6 @@ class GuiTcp:
         #Create AbbToolParseobject from file
         tool_data = AbbToolParse(filename)
         #Check if more than one tool was found
-        #ToDo: create notice if no tools were wound
         if len(tool_data.dict_array) > 1:
             #If more than one tool was found,
             #create a new window for user to select one
@@ -305,7 +315,7 @@ class GuiTcp:
             #to okay_press() method
             okay = ttk.Button(select_tool, text="Okay")
             okay.configure(command=lambda:self.okay_press(select_tool,
-                                                         tool_data.dict_array[lbox.curselection()[0]]))
+                                            tool_data.dict_array[lbox.curselection()[0]]))
             #Grid okay button, and listbox
             okay.grid(column=2, row=1, sticky=(S, E))
             lbox = Listbox(select_tool, listvariable=choices_var)
@@ -318,7 +328,10 @@ class GuiTcp:
         else:
             #Else only one tool found
             #Set all data fields from the dictionary
-            self.set_data(tool_data.dict_array[0])
+            try:
+                self.set_data(tool_data.dict_array[0])
+            except IndexError:
+                messagebox.showinfo("No Tool", "No toodata found in selected file")
 
     def set_data(self, chosen):
         """Sets all entry boxes from a tool dictionary.
